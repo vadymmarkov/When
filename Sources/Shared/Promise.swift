@@ -1,8 +1,10 @@
 import Foundation
 
-class Promise {
+enum State<T> {
+  case Pending, Fulfilled, Rejected
+}
 
-  enum State {
-    case Pending, Fulfilled, Rejected
-  }
+class Promise<T> {
+
+  var state = State<T>.Pending
 }
