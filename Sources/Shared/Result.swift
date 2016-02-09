@@ -1,5 +1,3 @@
-import Foundation
-
 public enum Result<T> {
   case Success(value: T)
   case Failure(error: ErrorType)
