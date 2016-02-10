@@ -3,8 +3,24 @@ public enum State<T> {
   case Resolved(value: T)
   case Rejected(error: ErrorType)
 
-  public func isPending() -> Bool {
+  public var isPending: Bool {
     return result == nil
+  }
+
+  public var isResolved: Bool {
+    if case .Resolved = self {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  public var isRejected: Bool {
+    if case .Rejected = self {
+      return true
+    } else {
+      return false
+    }
   }
 
   public func map<U>(closure: T -> U) -> State<U> {

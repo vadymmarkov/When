@@ -27,7 +27,7 @@ public final class Promise<T> {
 
   public func reject(error: ErrorType) {
     dispatch_sync(queue) {
-      guard self.state.isPending() else {
+      guard self.state.isPending else {
         return
       }
 
@@ -38,7 +38,7 @@ public final class Promise<T> {
 
   public func resolve(value: T) {
     dispatch_sync(queue) {
-      guard self.state.isPending() else {
+      guard self.state.isPending else {
         return
       }
 
