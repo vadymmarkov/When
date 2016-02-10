@@ -1,3 +1,16 @@
+import Quick
+import Nimble
+@testable import When
+
+class FunctionsSpec: QuickSpec {
+
+  override func spec() {
+    describe("Functions") {
+    }
+  }
+}
+
+
 //
 //import Foundation
 //
