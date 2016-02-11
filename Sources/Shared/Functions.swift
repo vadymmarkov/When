@@ -9,14 +9,18 @@ func serialQueue() -> dispatch_queue_t {
 }
 
 public func when<T>(promises: [Promise<T>]) -> Promise<[String: T]> {
-  let masterPromise = Promise<[String: T]>()
-  var values = [String: T]()
+  return when(promises) as Promise<[String: T]>
+}
+
+public func when(promises: [Promise<Any>]) -> Promise<[String: Any]> {
+  let masterPromise = Promise<[String: Any]>()
+  var values = [String: Any]()
 
   var (total, resolved) = (promises.count, 0)
 
   promises.forEach { promise in
     promise.then(
-      doneFilter: { value -> State<T>? in
+      doneFilter: { value -> State<Any>? in
         dispatch_sync(masterPromise.queue) {
           resolved++
           values[promise.key] = value
@@ -28,7 +32,7 @@ public func when<T>(promises: [Promise<T>]) -> Promise<[String: T]> {
 
         return nil
       },
-      failFilter: { error -> State<T>? in
+      failFilter: { error -> State<Any>? in
         dispatch_sync(masterPromise.queue) {
           masterPromise.reject(error)
         }
