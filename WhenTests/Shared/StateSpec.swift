@@ -47,7 +47,7 @@ class StateSpec: QuickSpec {
 
       context("when it's resolved") {
         beforeEach {
-          state = .Resolved(value: "yay!")
+          state = .Resolved(value: "Yay!")
         }
 
         describe("#isPending") {
