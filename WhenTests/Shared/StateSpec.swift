@@ -114,7 +114,7 @@ class StateSpec: QuickSpec {
             expect(nextState.isPending).to(beFalse())
             expect(nextState.isResolved).to(beFalse())
             expect(nextState.isRejected).to(beTrue())
-            expect(nextState.result).to(beNil())
+            expect(nextState.result?.value).to(beNil())
             expect(nextState.result?.error is SpecError).to(beTrue())
           }
         }

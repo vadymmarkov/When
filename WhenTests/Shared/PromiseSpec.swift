@@ -190,6 +190,94 @@ class PromiseSpec: QuickSpec {
           expect(promise.completionHandler).toNot(beNil())
         }
       }
+
+      describe("#then:on:_ body: T throws -> U") {
+        let string = "Success!"
+
+        beforeEach {
+          promise = Promise<String>()
+        }
+
+        context("with a body that transforms result") {
+          context("with a body throws an error") {
+            it("rejects the promise") {
+              let failExpectation = self.expectationWithDescription("Then fail expectation")
+
+              promise
+                .then({ value in
+                  throw SpecError.NotFound
+                })
+                .fail({ error in
+                  expect(error is SpecError).to(beTrue())
+                  failExpectation.fulfill()
+                })
+
+              promise.resolve(string)
+              self.waitForExpectationsWithTimeout(2.0, handler:nil)
+            }
+          }
+
+          context("with a body that returns a value") {
+            it("resolves the promise") {
+              let doneExpectation = self.expectationWithDescription("Then done expectation")
+
+              promise
+                .then({ value in
+                  return value + "?"
+                })
+                .done({ value in
+                  expect(value).to(equal(string + "?"))
+                  doneExpectation.fulfill()
+                })
+
+              promise.resolve(string)
+              self.waitForExpectationsWithTimeout(2.0, handler:nil)
+            }
+          }
+        }
+
+        context("with a body that returns a new promise") {
+          context("with a rejected promise") {
+            it("rejects the promise") {
+              let failExpectation = self.expectationWithDescription("Then fail expectation")
+
+              promise
+                .then({ value in
+                  return Promise({
+                    throw SpecError.NotFound
+                  })
+                })
+                .fail({ error in
+                  expect(error is SpecError).to(beTrue())
+                  failExpectation.fulfill()
+                })
+
+              promise.resolve(string)
+              self.waitForExpectationsWithTimeout(2.0, handler:nil)
+            }
+          }
+
+          context("with a body that returns a value") {
+            it("with a resolved promise") {
+              let doneExpectation = self.expectationWithDescription("Then done expectation")
+
+              promise
+                .then({ value in
+                  return Promise({
+                    return value + "?"
+                  })
+                })
+                .done({ value in
+                  expect(value).to(equal(string + "?"))
+                  doneExpectation.fulfill()
+                })
+
+              promise.resolve(string)
+              self.waitForExpectationsWithTimeout(2.0, handler:nil)
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -100,15 +100,20 @@ public final class Promise<T> {
       }
     }
 
+    doneHandler = nil
+    failureHandler = nil
+    completionHandler = nil
     observer = nil
   }
 
-  private func addObserver<U>(promise: Promise<U>, _ body: T throws -> U) {
+  private func addObserver<U>(on queue: dispatch_queue_t, promise: Promise<U>, _ body: T throws -> U?) {
     observer = Observer(queue: queue) { result in
       switch result {
       case let .Success(value):
         do {
-          promise.resolve(try body(value))
+          if let result = try body(value) {
+            promise.resolve(result)
+          }
         } catch {
           promise.reject(error)
         }
@@ -116,6 +121,8 @@ public final class Promise<T> {
         promise.reject(error)
       }
     }
+
+    notify(state: state)
   }
 }
 
@@ -123,35 +130,24 @@ public final class Promise<T> {
 
 extension Promise {
 
-  public func then<U>(on q: dispatch_queue_t = dispatch_get_main_queue(), _ body: T throws -> U) -> Promise<U> {
+  public func then<U>(on queue: dispatch_queue_t = dispatch_get_main_queue(), _ body: T throws -> U) -> Promise<U> {
     let promise = Promise<U>()
-
-    addObserver(promise, body)
-    notify(state: state)
+    addObserver(on: queue, promise: promise, body)
 
     return promise
   }
 
-  public func then<U>(on q: dispatch_queue_t = dispatch_get_main_queue(), _ body: T throws -> Promise<U>) -> Promise<U> {
+  public func then<U>(on queue: dispatch_queue_t = dispatch_get_main_queue(), _ body: T throws -> Promise<U>) -> Promise<U> {
     let promise = Promise<U>()
 
-    observer = Observer(queue: queue) { result in
-      switch result {
-      case let .Success(value):
-        do {
-          let nextPromise = try body(value)
-          nextPromise.addObserver(promise, { value -> U in
-            return value
-          })
-        } catch {
-          promise.reject(error)
-        }
-      case let .Failure(error):
-        promise.reject(error)
+    addObserver(on: queue, promise: promise) { value -> U? in
+      let nextPromise = try body(value)
+      nextPromise.addObserver(on: queue, promise: promise) { value -> U in
+        return value
       }
-    }
 
-    notify(state: state)
+      return nil
+    }
 
     return promise
   }
