@@ -11,10 +11,10 @@ public final class Promise<T> {
   var queue: dispatch_queue_t
   private(set) var state: State<T>
 
-  private var observer: Observer<T>?
-  private var doneHandler: DoneHandler?
-  private var failureHandler: FailureHandler?
-  private var completionHandler: CompletionHandler?
+  private(set) var observer: Observer<T>?
+  private(set) var doneHandler: DoneHandler?
+  private(set) var failureHandler: FailureHandler?
+  private(set) var completionHandler: CompletionHandler?
 
   // MARK: - Initialization
 
