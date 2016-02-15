@@ -37,7 +37,3 @@ public enum Result<T> {
     }
   }
 }
-
-public func ==<T: Equatable>(lhs: Result<T>, rhs: Result<T>) -> Bool {
-  return lhs.value == rhs.value
-}

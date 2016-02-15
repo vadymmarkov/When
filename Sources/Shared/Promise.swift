@@ -18,6 +18,18 @@ public final class Promise<T> {
 
   // MARK: - Initialization
 
+  public init(@noescape _ throwingExpr: Void throws -> T, queue: dispatch_queue_t = serialQueue()) {
+    state = .Pending
+    self.queue = queue
+
+    do {
+      let value = try throwingExpr()
+      resolve(value)
+    } catch {
+      reject(error)
+    }
+  }
+
   public init(state: State<T> = .Pending, queue: dispatch_queue_t = serialQueue()) {
     self.state = state
     self.queue = queue
@@ -90,51 +102,57 @@ public final class Promise<T> {
 
     observer = nil
   }
+
+  private func addObserver<U>(promise: Promise<U>, _ body: T throws -> U) {
+    observer = Observer(queue: queue) { result in
+      switch result {
+      case let .Success(value):
+        do {
+          promise.resolve(try body(value))
+        } catch {
+          promise.reject(error)
+        }
+      case let .Failure(error):
+        promise.reject(error)
+      }
+    }
+  }
 }
 
 // MARK: - Then
 
 extension Promise {
 
-  public func then<U>(
-    queue: dispatch_queue_t = backgroundQueue(),
-    doneFilter: (T -> State<U>?)? = nil,
-    failFilter: (ErrorType -> State<U>?)? = nil) -> Promise<U> {
+  public func then<U>(on q: dispatch_queue_t = dispatch_get_main_queue(), _ body: T throws -> U) -> Promise<U> {
+    let promise = Promise<U>()
 
-      let promise = Promise<U>()
+    addObserver(promise, body)
+    notify(state: state)
 
-      observer = Observer(queue: queue) { result in
-        switch result {
-        case let .Success(value):
-          promise.notify(state: doneFilter?(value))
-        case let .Failure(error):
-          promise.notify(state: failFilter?(error))
-        }
-      }
-
-      notify(state: state)
-
-      return promise
+    return promise
   }
 
-  public func then<U>(
-    queue: dispatch_queue_t = backgroundQueue(),
-    doneFilter: ((T, Promise<U>) -> Void)? = nil,
-    failFilter: ((ErrorType, Promise<U>) -> Void)? = nil) -> Promise<U> {
+  public func then<U>(on q: dispatch_queue_t = dispatch_get_main_queue(), _ body: T throws -> Promise<U>) -> Promise<U> {
+    let promise = Promise<U>()
 
-      let promise = Promise<U>()
-
-      observer = Observer(queue: queue) { result in
-        switch result {
-        case let .Success(value):
-          doneFilter?(value, promise)
-        case let .Failure(error):
-          failFilter?(error, promise)
+    observer = Observer(queue: queue) { result in
+      switch result {
+      case let .Success(value):
+        do {
+          let nextPromise = try body(value)
+          nextPromise.addObserver(promise, { value -> U in
+            return value
+          })
+        } catch {
+          promise.reject(error)
         }
+      case let .Failure(error):
+        promise.reject(error)
       }
+    }
 
-      notify(state: state)
+    notify(state: state)
 
-      return promise
+    return promise
   }
 }

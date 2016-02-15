@@ -18,29 +18,29 @@ public func when(promises: [Promise<Any>]) -> Promise<[String: Any]> {
 
   var (total, resolved) = (promises.count, 0)
 
-  promises.forEach { promise in
-    promise.then(
-      doneFilter: { value -> State<Any>? in
-        dispatch_sync(masterPromise.queue) {
-          resolved++
-          values[promise.key] = value
-
-          if resolved == total {
-            masterPromise.resolve(values)
-          }
-        }
-
-        return nil
-      },
-      failFilter: { error -> State<Any>? in
-        dispatch_sync(masterPromise.queue) {
-          masterPromise.reject(error)
-        }
-
-        return nil
-      }
-    )
-  }
+//  promises.forEach { promise in
+//    promise.then(
+//      doneFilter: { value -> State<Any>? in
+//        dispatch_sync(masterPromise.queue) {
+//          resolved++
+//          values[promise.key] = value
+//
+//          if resolved == total {
+//            masterPromise.resolve(values)
+//          }
+//        }
+//
+//        return nil
+//      },
+//      failFilter: { error -> State<Any>? in
+//        dispatch_sync(masterPromise.queue) {
+//          masterPromise.reject(error)
+//        }
+//
+//        return nil
+//      }
+//    )
+//  }
 
   return masterPromise
 }

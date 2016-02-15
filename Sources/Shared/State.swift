@@ -1,4 +1,4 @@
-public enum State<T> {
+public enum State<T>: Equatable {
   case Pending
   case Resolved(value: T)
   case Rejected(error: ErrorType)
@@ -44,4 +44,10 @@ public enum State<T> {
       return nil
     }
   }
+}
+
+public func ==<T>(lhs: State<T>, rhs: State<T>) -> Bool {
+  return lhs.isPending == rhs.isPending
+    || lhs.isResolved == rhs.isResolved
+    || lhs.isRejected == rhs.isRejected
 }
