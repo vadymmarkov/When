@@ -18,12 +18,12 @@ public final class Promise<T> {
 
   // MARK: - Initialization
 
-  public init(@noescape _ throwingExpr: Void throws -> T, queue: dispatch_queue_t = serialQueue()) {
+  public init(@noescape _ body: Void throws -> T, queue: dispatch_queue_t = serialQueue()) {
     state = .Pending
     self.queue = queue
 
     do {
-      let value = try throwingExpr()
+      let value = try body()
       resolve(value)
     } catch {
       reject(error)
