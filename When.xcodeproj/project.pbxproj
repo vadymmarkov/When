@@ -45,8 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D500FD111C3AABED00782D78 /* Playground-iOS.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Playground-iOS.playground"; sourceTree = "<group>"; };
-		D500FD121C3AAC8E00782D78 /* Playground-Mac.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Playground-Mac.playground"; sourceTree = "<group>"; };
+		D500FD111C3AABED00782D78 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		D509E46D1C6B2A16009DEB57 /* SpecError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecError.swift; sourceTree = "<group>"; };
 		D5B2E89F1C3A780C00C0327D /* When.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = When.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5B2E8A91C3A780C00C0327D /* When-iOS-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "When-iOS-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,8 +111,7 @@
 		D5B2E8951C3A780C00C0327D = {
 			isa = PBXGroup;
 			children = (
-				D500FD111C3AABED00782D78 /* Playground-iOS.playground */,
-				D500FD121C3AAC8E00782D78 /* Playground-Mac.playground */,
+				D500FD111C3AABED00782D78 /* Playground.playground */,
 				D5C629691C3A809D007F7B7C /* Sources */,
 				D5C6295C1C3A800E007F7B7C /* When */,
 				D5C6298F1C3A8BDA007F7B7C /* WhenTests */,
