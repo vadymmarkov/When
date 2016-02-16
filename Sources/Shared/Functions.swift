@@ -1,37 +1,38 @@
 import Foundation
 
-func backgroundQueue() -> dispatch_queue_t {
-  return dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+let asyncQueue: dispatch_queue_t = dispatch_queue_create("When.AsyncQueue", nil)
+let mainQueue = dispatch_get_main_queue()
+let barrierQueue = dispatch_queue_create("When.BarrierQueue", DISPATCH_QUEUE_CONCURRENT)
+
+public func when<T, U>(p1: Promise<T>, _ p2: Promise<U>) -> Promise<(T, U)> {
+  return when([p1.asVoid(), p2.asVoid()]).then(on: asyncQueue) {
+    (p1.state.result!.value!, p2.state.result!.value!)
+  }
 }
 
-func serialQueue() -> dispatch_queue_t {
-  return dispatch_queue_create("When.SerialQueue", DISPATCH_QUEUE_SERIAL)
+public func when<T, U, V>(p1: Promise<T>, _ p2: Promise<U>, _ p3: Promise<V>) -> Promise<(T, U, V)> {
+  return when([p1.asVoid(), p2.asVoid(), p3.asVoid()]).then(on: asyncQueue) {
+    (p1.state.result!.value!, p2.state.result!.value!, p3.state.result!.value!)
+  }
 }
 
-public func when<T>(promises: [Promise<T>]) -> Promise<[String: T]> {
-  return when(promises) as Promise<[String: T]>
-}
-
-public func when(promises: [Promise<Any>]) -> Promise<[String: Any]> {
-  let masterPromise = Promise<[String: Any]>()
-  var values = [String: Any]()
-
+private func when<T>(promises: [Promise<T>]) -> Promise<Void> {
+  let masterPromise = Promise<Void>()
   var (total, resolved) = (promises.count, 0)
 
   promises.forEach { promise in
     promise
       .done({ value in
-        dispatch_sync(masterPromise.queue) {
+        dispatch_barrier_sync(barrierQueue) {
           resolved++
-          values[promise.key] = value
-
           if resolved == total {
-            masterPromise.resolve(values)
+            masterPromise.resolve()
           }
         }
       })
       .fail({ error in
-        dispatch_sync(masterPromise.queue) {
+        dispatch_barrier_sync(barrierQueue) {
           masterPromise.reject(error)
         }
       })

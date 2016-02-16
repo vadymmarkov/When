@@ -6,42 +6,55 @@ class FunctionsSpec: QuickSpec {
 
   override func spec() {
     describe("Functions") {
+      describe("#then") {
+        var promise1: Promise<Int>!
+        var promise2: Promise<Int>!
+        var promise3: Promise<Int>!
+
+        beforeEach {
+          promise1 = Promise<Int>()
+          promise2 = Promise<Int>()
+          promise3 = Promise<Int>()
+        }
+
+        context("with a body throws an error") {
+          it("rejects the promise") {
+            let failExpectation = self.expectationWithDescription("Fail expectation")
+
+            when(promise1, promise2, promise3)
+              .fail({ error in
+                expect(error is SpecError).to(beTrue())
+                failExpectation.fulfill()
+              })
+
+            promise1.resolve(1)
+            promise2.reject(SpecError.NotFound)
+            promise3.resolve(1)
+
+            self.waitForExpectationsWithTimeout(2.0, handler:nil)
+          }
+        }
+
+        context("with a body that returns a value") {
+          it("resolves the promise") {
+            let doneExpectation = self.expectationWithDescription("Done expectation")
+
+            when(promise1, promise2, promise3)
+              .done({ value1, value2, value3 in
+                expect(value1).to(equal(1))
+                expect(value2).to(equal(2))
+                expect(value3).to(equal(3))
+                doneExpectation.fulfill()
+              })
+
+            promise1.resolve(1)
+            promise2.resolve(2)
+            promise3.resolve(3)
+
+            self.waitForExpectationsWithTimeout(2.0, handler:nil)
+          }
+        }
+      }
     }
   }
 }
-
-
-//
-//import Foundation
-//
-//describe("clearExpired") {
-//  it("removes expired objects") {
-//    let expectation1 = self.expectationWithDescription(
-//      "Clear If Expired Expectation")
-//    let expectation2 = self.expectationWithDescription(
-//      "Don't Clear If Not Expired Expectation")
-//
-//    let expiry1: Expiry = .Date(NSDate().dateByAddingTimeInterval(-100000))
-//    let expiry2: Expiry = .Date(NSDate().dateByAddingTimeInterval(100000))
-//
-//    let key1 = "item1"
-//    let key2 = "item2"
-//
-//    storage.add(key1, object: object, expiry: expiry1)
-//    storage.add(key2, object: object, expiry: expiry2)
-//
-//    storage.clearExpired {
-//      storage.object(key1) { (receivedObject: User?) in
-//        expect(receivedObject).to(beNil())
-//        expectation1.fulfill()
-//      }
-//
-//      storage.object(key2) { (receivedObject: User?) in
-//        expect(receivedObject).toNot(beNil())
-//        expectation2.fulfill()
-//      }
-//    }
-//
-//    self.waitForExpectationsWithTimeout(5.0, handler:nil)
-//  }
-//}

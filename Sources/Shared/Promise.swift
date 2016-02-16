@@ -18,7 +18,7 @@ public final class Promise<T> {
 
   // MARK: - Initialization
 
-  public init(@noescape _ body: Void throws -> T, queue: dispatch_queue_t = serialQueue()) {
+  public init(@noescape _ body: Void throws -> T, queue: dispatch_queue_t = mainQueue) {
     state = .Pending
     self.queue = queue
 
@@ -30,7 +30,7 @@ public final class Promise<T> {
     }
   }
 
-  public init(state: State<T> = .Pending, queue: dispatch_queue_t = serialQueue()) {
+  public init(state: State<T> = .Pending, queue: dispatch_queue_t = mainQueue) {
     self.state = state
     self.queue = queue
   }
@@ -38,7 +38,7 @@ public final class Promise<T> {
   // MARK: - States
 
   public func reject(error: ErrorType) {
-    dispatch_sync(queue) {
+    dispatch_async(queue) {
       guard self.state.isPending else {
         return
       }
@@ -49,7 +49,7 @@ public final class Promise<T> {
   }
 
   public func resolve(value: T) {
-    dispatch_sync(queue) {
+    dispatch_async(queue) {
       guard self.state.isPending else {
         return
       }
@@ -130,14 +130,14 @@ public final class Promise<T> {
 
 extension Promise {
 
-  public func then<U>(on queue: dispatch_queue_t = dispatch_get_main_queue(), _ body: T throws -> U) -> Promise<U> {
+  public func then<U>(on queue: dispatch_queue_t = mainQueue, _ body: T throws -> U) -> Promise<U> {
     let promise = Promise<U>()
     addObserver(on: queue, promise: promise, body)
 
     return promise
   }
 
-  public func then<U>(on queue: dispatch_queue_t = dispatch_get_main_queue(), _ body: T throws -> Promise<U>) -> Promise<U> {
+  public func then<U>(on queue: dispatch_queue_t = mainQueue, _ body: T throws -> Promise<U>) -> Promise<U> {
     let promise = Promise<U>()
 
     addObserver(on: queue, promise: promise) { value -> U? in
@@ -150,5 +150,9 @@ extension Promise {
     }
 
     return promise
+  }
+
+  public func asVoid() -> Promise<Void> {
+    return then(on: asyncQueue) { _ in return }
   }
 }

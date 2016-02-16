@@ -59,9 +59,18 @@ class PromiseSpec: QuickSpec {
           }
 
           it("rejects the promise") {
-            expect(promise.state.isRejected).to(beTrue())
-            expect(promise.state.result?.value).to(beNil())
-            expect(promise.state.result?.error is SpecError).to(beTrue())
+            let failExpectation = self.expectationWithDescription("Fail expectation")
+
+            promise
+              .fail({ object in
+                expect(promise.state.isRejected).to(beTrue())
+                expect(promise.state.result?.value).to(beNil())
+                expect(promise.state.result?.error is SpecError).to(beTrue())
+
+                failExpectation.fulfill()
+              })
+
+            self.waitForExpectationsWithTimeout(2.0, handler:nil)
           }
         }
 
@@ -75,9 +84,18 @@ class PromiseSpec: QuickSpec {
           }
 
           it("resolves the promise") {
-            expect(promise.state.isResolved).to(beTrue())
-            expect(promise.state.result?.value).to(equal(string))
-            expect(promise.state.result?.error).to(beNil())
+            let doneExpectation = self.expectationWithDescription("Done expectation")
+
+            promise
+              .done({ object in
+                expect(promise.state.isResolved).to(beTrue())
+                expect(promise.state.result?.value).to(equal(string))
+                expect(promise.state.result?.error).to(beNil())
+
+                doneExpectation.fulfill()
+              })
+
+            self.waitForExpectationsWithTimeout(2.0, handler:nil)
           }
         }
       }
@@ -85,14 +103,7 @@ class PromiseSpec: QuickSpec {
       describe("#reject") {
         beforeEach {
           promise = Promise<String>()
-        }
-
-        it("rejects the promise") {
           promise.reject(SpecError.NotFound)
-
-          expect(promise.state.isRejected).to(beTrue())
-          expect(promise.state.result?.value).to(beNil())
-          expect(promise.state.result?.error is SpecError).to(beTrue())
         }
 
         it("calls callbacks") {
@@ -102,6 +113,10 @@ class PromiseSpec: QuickSpec {
           promise
             .fail({ error in
               expect(error is SpecError).to(beTrue())
+              expect(promise.state.isRejected).to(beTrue())
+              expect(promise.state.result?.value).to(beNil())
+              expect(promise.state.result?.error is SpecError).to(beTrue())
+
               failExpectation.fulfill()
             })
             .always({ result in
@@ -124,14 +139,7 @@ class PromiseSpec: QuickSpec {
 
         beforeEach {
           promise = Promise<String>()
-        }
-
-        it("resolves the promise") {
           promise.resolve(string)
-
-          expect(promise.state.isResolved).to(beTrue())
-          expect(promise.state.result?.value).to(equal(string))
-          expect(promise.state.result?.error).to(beNil())
         }
 
         it("calls callbacks") {
@@ -141,6 +149,10 @@ class PromiseSpec: QuickSpec {
           promise
             .done({ object in
               expect(object).to(equal(string))
+              expect(promise.state.isResolved).to(beTrue())
+              expect(promise.state.result?.value).to(equal(string))
+              expect(promise.state.result?.error).to(beNil())
+
               doneExpectation.fulfill()
             })
             .always({ result in
@@ -191,7 +203,7 @@ class PromiseSpec: QuickSpec {
         }
       }
 
-      describe("#then:on:_ body: T throws -> U") {
+      describe("#then") {
         let string = "Success!"
 
         beforeEach {
