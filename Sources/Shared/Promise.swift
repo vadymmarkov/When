@@ -38,25 +38,21 @@ public final class Promise<T> {
   // MARK: - States
 
   public func reject(error: ErrorType) {
-    dispatch_async(queue) {
-      guard self.state.isPending else {
-        return
-      }
-
-      let state: State<T> = .Rejected(error: error)
-      self.notify(state: state)
+    guard self.state.isPending else {
+      return
     }
+
+    let state: State<T> = .Rejected(error: error)
+    update(state: state)
   }
 
   public func resolve(value: T) {
-    dispatch_async(queue) {
-      guard self.state.isPending else {
-        return
-      }
-
-      let state: State<T> = .Resolved(value: value)
-      self.notify(state: state)
+    guard self.state.isPending else {
+      return
     }
+
+    let state: State<T> = .Resolved(value: value)
+    update(state: state)
   }
 
   // MARK: - Callbacks
@@ -78,13 +74,18 @@ public final class Promise<T> {
 
   // MARK: - Helpers
 
-  private func notify(state state: State<T>?) {
-    guard let state = state, result = state.result else {
-      return
+  private func update(state state: State<T>?) {
+    dispatch(queue) {
+      guard let state = state, result = state.result else {
+        return
+      }
+
+      self.state = state
+      self.notify(result)
     }
+  }
 
-    self.state = state
-
+  private func notify(result: Result<T>) {
     switch result {
     case let .Success(value):
       doneHandler?(value)
@@ -95,7 +96,7 @@ public final class Promise<T> {
     completionHandler?(result)
 
     if let observer = observer {
-      dispatch_async(observer.queue) {
+      dispatch(observer.queue) {
         observer.notify(result)
       }
     }
@@ -122,7 +123,15 @@ public final class Promise<T> {
       }
     }
 
-    notify(state: state)
+    update(state: state)
+  }
+
+  private func dispatch(queue: dispatch_queue_t, closure: () -> Void) {
+    if queue === instantQueue {
+      closure()
+    } else {
+      dispatch_async(queue, closure)
+    }
   }
 }
 
@@ -152,7 +161,15 @@ extension Promise {
     return promise
   }
 
-  public func asVoid() -> Promise<Void> {
-    return then(on: asyncQueue) { _ in return }
+  public func thenInBackground<U>(body: T throws -> U) -> Promise<U> {
+    return then(on: backgroundQueue, body)
+  }
+
+  public func thenInBackground<U>(body: T throws -> Promise<U>) -> Promise<U> {
+    return then(on: backgroundQueue, body)
+  }
+
+  func asVoid() -> Promise<Void> {
+    return then(on: instantQueue) { _ in return }
   }
 }
