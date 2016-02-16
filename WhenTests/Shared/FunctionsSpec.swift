@@ -7,13 +7,14 @@ class FunctionsSpec: QuickSpec {
   override func spec() {
     describe("Functions") {
       describe("#then") {
+        let string = "Success!"
         var promise1: Promise<Int>!
-        var promise2: Promise<Int>!
+        var promise2: Promise<String>!
         var promise3: Promise<Int>!
 
         beforeEach {
           promise1 = Promise<Int>()
-          promise2 = Promise<Int>()
+          promise2 = Promise<String>()
           promise3 = Promise<Int>()
         }
 
@@ -42,13 +43,13 @@ class FunctionsSpec: QuickSpec {
             when(promise1, promise2, promise3)
               .done({ value1, value2, value3 in
                 expect(value1).to(equal(1))
-                expect(value2).to(equal(2))
+                expect(value2).to(equal(string))
                 expect(value3).to(equal(3))
                 doneExpectation.fulfill()
               })
 
             promise1.resolve(1)
-            promise2.resolve(2)
+            promise2.resolve(string)
             promise3.resolve(3)
 
             self.waitForExpectationsWithTimeout(2.0, handler:nil)
