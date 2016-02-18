@@ -20,6 +20,7 @@ type you want.
 asynchronous code up to the next level.
 
 ## Why?
+<img src="https://github.com/vadymmarkov/Pitchy/blob/master/Resources/WhenIcon.png" alt="When Icon" width="190" height="190" align="right" />
 
 To do some cool stuff like:
 ```swift
