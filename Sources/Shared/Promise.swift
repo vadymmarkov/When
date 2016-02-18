@@ -18,7 +18,7 @@ public final class Promise<T> {
 
   // MARK: - Initialization
 
-  public init(@noescape _ body: Void throws -> T, queue: dispatch_queue_t = mainQueue) {
+  public init(queue: dispatch_queue_t = mainQueue, @noescape _ body: Void throws -> T) {
     state = .Pending
     self.queue = queue
 
@@ -30,7 +30,7 @@ public final class Promise<T> {
     }
   }
 
-  public init(state: State<T> = .Pending, queue: dispatch_queue_t = mainQueue) {
+  public init(queue: dispatch_queue_t = mainQueue, state: State<T> = .Pending) {
     self.state = state
     self.queue = queue
   }
