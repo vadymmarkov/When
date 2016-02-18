@@ -8,21 +8,37 @@
 
 ## Description
 
-*When* is a lightweight implementation of Promises in Swift. https://en.wikipedia.org/wiki/Futures_and_promises
-It doesn't include any helper functions for iOS and OSX and it's intentional,
-to remove redundant complexity and give you more freedom and flexibility in
-your choices.
+**When** is a lightweight implementation of [Promises](https://en.wikipedia.org/wiki/Futures_and_promises)
+in Swift. It doesn't include any helper functions for iOS and OSX and it's
+intentional, to remove redundant complexity and give you more freedom and
+flexibility in your choices. It is type safe, thanks Swift generics, so you
+could create ***promises*** with whatever type you want.
 
-*When* is type safe, thanks Swift generics, so you could use it with whatever
-type you want.
-
-*When* can easily be integrated into your projects and libraries to move your
+**When** can easily be integrated into your projects and libraries to move your
 asynchronous code up to the next level.
 
-## Why?
+## Table of Contents
+
 <img src="https://github.com/vadymmarkov/When/blob/master/Resources/WhenIcon.png" alt="When Icon" width="190" height="190" align="right" />
 
-To do some cool stuff like:
+* [Why?](#why)
+* [Usage](#usage)
+  * [Promise](#promise)
+  * [Done](#done)
+  * [Fail](#fail)
+  * [Always](#always)
+  * [Then](#then)
+  * [When](#when)
+* [Installation](#installation)
+* [Author](#author)
+* [Credits](#credits)
+* [Contributing](#contributing)
+* [License](#license)
+
+## Why?
+
+To make asynchronous code more readable and standardized:
+
 ```swift
 fetchJSON().then({ data: NSData -> [[String: AnyObject]] in
   // Convert to JSON
@@ -42,17 +58,17 @@ fetchJSON().then({ data: NSData -> [[String: AnyObject]] in
 ## Usage
 
 ### Promise
-A *promise* represents the future value of a task. Promises start in a pending
-state and the could be resolved with a value or rejected with an error.
+A ***promise*** represents the future value of a task. Promises start in a pending
+state and then could be resolved with a value or rejected with an error.
 
 ```swift
 // Creates a new promise that could be resolved with a String value
 let promise = Promise<String>()
 
-// Resolve the promise
+// Resolves the promise
 promise.resolve("String")
 
-// Or reject the promise
+// Or rejects the promise
 promise.reject(Error.NotFound)
 ```
 
@@ -64,22 +80,23 @@ let promise = Promise({
 ```
 
 ```swift
-// Creates a new promise that is rejected with an `ErrorType`.
+// Creates a new promise that is rejected with an ErrorType
 let promise = Promise({
   //...
   throw Error.NotFound
 })
 ```
 
-Callbacks of the current *promise* and all chained promises
+Callbacks of the current ***promise*** and all the chained promises
 (created with [then](#then)) are executed on the main queue by default, but
 you can always specify the needed queue in `init`:
+
 ```swift
 let promise = Promise<String>(queue: dispatch_get_main_queue())
 ```
 
 ### Done
-Add a handler to be called when the *promise* object is resolved with a value.
+Add a handler to be called when the ***promise*** object is resolved with a value:
 
 ```swift
 // Create a new promise in a pending state
@@ -95,8 +112,8 @@ promise.resolve("String")
 ```
 
 ### Fail
-Add a handler to be called when the *promise* object is rejected with
-an `ErrorType`.
+Add a handler to be called when the ***promise*** object is rejected with
+an `ErrorType`:
 
 ```swift
 // Create a new promise in a pending state
@@ -112,8 +129,9 @@ promise.reject(Error.NotFound)
 ```
 
 ### Always
-Add a handler to be called when the *promise* object is either resolved or
-rejected. This callback will be called after *done* or *fail* handlers.
+Add a handler to be called when the ***promise*** object is either resolved or
+rejected. This callback will be called after [done](#done) or [fail](#fail)
+handlers.
 
 ```swift
 // Create a new promise in a pending state
@@ -134,11 +152,14 @@ promise.resolve("String") // promise.reject(Error.NotFound)
 ```
 
 ### Then
-Returns a new *promise* that can use the result value of the current promise. It
-means that you could easily create chains of *promises* to simplify complex
-asynchronous operations into clear and simple to understand logic.
+Returns a new ***promise*** that can use the result value of the current
+promise. It means that you could easily create chains of ***promises*** to
+simplify complex asynchronous operations into clear and simple to understand
+logic.
 
-A new *promise* is resolved with the value returned from the provided closure:
+A new ***promise*** is resolved with the value returned from the provided
+closure:
+
 ```swift
 let promise = Promise<NSData>()
 
@@ -154,8 +175,8 @@ promise
 promise.resolve("String".dataUsingEncoding(NSUTF8StringEncoding)!)
 ```
 
-A new *promise* is resolved when the *promise* returned from the provided
-closure resolves:
+A new ***promise*** is resolved when the ***promise*** returned from the
+provided closure resolves:
 ```swift
 struct Networking {
   static func GET(url: NSURL) -> Promise<NSData> {
@@ -176,8 +197,9 @@ Networking.GET(url1)
   })
 ```
 
-*then* closure is executed on the main queue by default, but you can pass a
+***then*** closure is executed on the main queue by default, but you can pass a
 needed queue as a parameter:
+
 ```swift
 promise.then(on: dispatch_get_global_queue(QOS_CLASS_UTILITY, 0))({ data -> Int in
   //...
@@ -185,6 +207,7 @@ promise.then(on: dispatch_get_global_queue(QOS_CLASS_UTILITY, 0))({ data -> Int 
 ```
 
 If you want to use background queue there are the helper methods for this case:
+
 ```swift
 promise1.thenInBackground({ data -> Int in
   //...
@@ -196,13 +219,14 @@ promise2.thenInBackground({ data -> Promise<NSData> in
 ```
 
 ### When
-Provides a way to execute callback functions based on one or more *promises*.
-The *when* method returns a new "master" *promise* that tracks the aggregate
-state of all the passed *promises*. The method will resolve its "master"
-*promise* as soon as all the *promises* resolve, or reject the "master"
-*promise* as soon as one of the *promises* is rejected. If the "master"
-*promise* is resolved, the *done* callback is executed with resolved values for
-each of the *promises*:
+Provides a way to execute callback functions based on one or more
+***promises***. The ***when*** method returns a new "master" ***promise*** that
+tracks the aggregate state of all the passed ***promises***. The method will
+resolve its "master" ***promise*** as soon as all the ***promises*** resolve,
+or reject the "master" ***promise*** as soon as one of the ***promises*** is
+rejected. If the "master" ***promise*** is resolved, the ***done*** callback is
+executed with resolved values for each of the ***promises***:
+
 ```swift
 let promise1 = Promise<Int>()
 let promise2 = Promise<String>()
