@@ -21,6 +21,19 @@ Promise({
   print(error)
 })
 
+// MARK: - A chain example
+
+let promise = Promise<NSData>()
+promise
+  .then({ data -> Int in
+    return data.length
+  }).then({ length -> Bool in
+    return length > 5
+  }).done({ value in
+    print(value)
+  })
+
+promise.resolve("String".dataUsingEncoding(NSUTF8StringEncoding)!)
 
 // MARK: - With a body that transforms a result
 
