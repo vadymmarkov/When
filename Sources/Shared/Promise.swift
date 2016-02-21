@@ -151,7 +151,7 @@ extension Promise {
 
     addObserver(on: queue, promise: promise) { value -> U? in
       let nextPromise = try body(value)
-      nextPromise.addObserver(on: queue, promise: promise) { value -> U in
+      nextPromise.addObserver(on: queue, promise: promise) { value -> U? in
         return value
       }
 
