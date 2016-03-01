@@ -1,6 +1,6 @@
 import Foundation
 
-public final class Promise<T> {
+public class Promise<T> {
 
   public typealias DoneHandler = T -> Void
   public typealias FailureHandler = ErrorType -> Void
