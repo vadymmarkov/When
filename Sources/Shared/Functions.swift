@@ -25,7 +25,7 @@ private func when<T>(promises: [Promise<T>]) -> Promise<Void> {
     promise
       .done({ value in
         dispatch_barrier_sync(barrierQueue) {
-          resolved++
+          resolved += 1
           if resolved == total {
             masterPromise.resolve()
           }
