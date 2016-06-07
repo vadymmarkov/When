@@ -23,6 +23,10 @@
 		D5C6294A1C3A7FAA007F7B7C /* When.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C629401C3A7FAA007F7B7C /* When.framework */; };
 		D5C6299C1C3A8BDA007F7B7C /* StateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C629971C3A8BDA007F7B7C /* StateSpec.swift */; };
 		D5C6299E1C3A8C75007F7B7C /* StateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C629971C3A8BDA007F7B7C /* StateSpec.swift */; };
+		D5E061CE1D06D82C009740F2 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C190031C695AE700ECCB66 /* Functions.swift */; };
+		D5E061CF1D06D82F009740F2 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C18FFE1C69453200ECCB66 /* State.swift */; };
+		D5E061D01D06D833009740F2 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C18FF81C68F1BC00ECCB66 /* Observer.swift */; };
+		D5E061D11D06D835009740F2 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C18FF91C68F1BC00ECCB66 /* Result.swift */; };
 		D5ED73A91C677EB4003772EF /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ED73A81C677EB4003772EF /* Promise.swift */; };
 		D5ED73AA1C677EB4003772EF /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ED73A81C677EB4003772EF /* Promise.swift */; };
 /* End PBXBuildFile section */
@@ -415,6 +419,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5ED73AA1C677EB4003772EF /* Promise.swift in Sources */,
+				D5E061D11D06D835009740F2 /* Result.swift in Sources */,
+				D5E061D01D06D833009740F2 /* Observer.swift in Sources */,
+				D5E061CE1D06D82C009740F2 /* Functions.swift in Sources */,
+				D5E061CF1D06D82F009740F2 /* State.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
