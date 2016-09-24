@@ -11,7 +11,7 @@ class ResultSpec: QuickSpec {
 
       context("when it's success") {
         beforeEach {
-          result = .Success(value: string)
+          result = .success(value: string)
         }
 
         describe("#value") {
@@ -40,7 +40,7 @@ class ResultSpec: QuickSpec {
 
       context("when it's failure") {
         beforeEach {
-          result = .Failure(error: SpecError.NotFound)
+          result = .failure(error: SpecError.notFound)
         }
 
         describe("#value") {

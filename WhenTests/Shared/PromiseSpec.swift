@@ -28,11 +28,11 @@ class PromiseSpec: QuickSpec {
         }
 
         context("with custom values") {
-          let state = State.Resolved(value: "Yay!")
-          let queue = dispatch_get_main_queue()
+          let state = State.resolved(value: "Yay!")
+          let queue = DispatchQueue.main
 
           beforeEach {
-            promise = Promise(state: state, queue: queue)
+            promise = Promise(queue: queue, state: state)
           }
 
           it("has default optional fields") {
@@ -54,12 +54,12 @@ class PromiseSpec: QuickSpec {
         context("with a body throws an error") {
           beforeEach {
             promise = Promise({
-              throw SpecError.NotFound
+              throw SpecError.notFound
             })
           }
 
           it("rejects the promise") {
-            let failExpectation = self.expectationWithDescription("Fail expectation")
+            let failExpectation = self.expectation(description: "Fail expectation")
 
             promise
               .fail({ object in
@@ -70,7 +70,7 @@ class PromiseSpec: QuickSpec {
                 failExpectation.fulfill()
               })
 
-            self.waitForExpectationsWithTimeout(2.0, handler:nil)
+            self.waitForExpectations(timeout: 2.0, handler:nil)
           }
         }
 
@@ -84,7 +84,7 @@ class PromiseSpec: QuickSpec {
           }
 
           it("resolves the promise") {
-            let doneExpectation = self.expectationWithDescription("Done expectation")
+            let doneExpectation = self.expectation(description: "Done expectation")
 
             promise
               .done({ object in
@@ -95,7 +95,7 @@ class PromiseSpec: QuickSpec {
                 doneExpectation.fulfill()
               })
 
-            self.waitForExpectationsWithTimeout(2.0, handler:nil)
+            self.waitForExpectations(timeout: 2.0, handler:nil)
           }
         }
       }
@@ -103,12 +103,12 @@ class PromiseSpec: QuickSpec {
       describe("#reject") {
         beforeEach {
           promise = Promise<String>()
-          promise.reject(SpecError.NotFound)
+          promise.reject(SpecError.notFound)
         }
 
         it("calls callbacks") {
-          let failExpectation = self.expectationWithDescription("Fail expectation")
-          let alwaysExpectation = self.expectationWithDescription("Always expectation")
+          let failExpectation = self.expectation(description: "Fail expectation")
+          let alwaysExpectation = self.expectation(description: "Always expectation")
 
           promise
             .fail({ error in
@@ -121,7 +121,7 @@ class PromiseSpec: QuickSpec {
             })
             .always({ result in
               switch result {
-              case let .Failure(error):
+              case let .failure(error):
                 expect(error is SpecError).to(beTrue())
                 alwaysExpectation.fulfill()
               default:
@@ -129,8 +129,8 @@ class PromiseSpec: QuickSpec {
               }
             })
 
-          promise.reject(SpecError.NotFound)
-          self.waitForExpectationsWithTimeout(2.0, handler:nil)
+          promise.reject(SpecError.notFound)
+          self.waitForExpectations(timeout: 2.0, handler:nil)
         }
       }
 
@@ -143,8 +143,8 @@ class PromiseSpec: QuickSpec {
         }
 
         it("calls callbacks") {
-          let doneExpectation = self.expectationWithDescription("Done expectation")
-          let alwaysExpectation = self.expectationWithDescription("Always expectation")
+          let doneExpectation = self.expectation(description: "Done expectation")
+          let alwaysExpectation = self.expectation(description: "Always expectation")
 
           promise
             .done({ object in
@@ -157,7 +157,7 @@ class PromiseSpec: QuickSpec {
             })
             .always({ result in
               switch result {
-              case let .Success(value):
+              case let .success(value):
                 expect(value).to(equal(string))
                 alwaysExpectation.fulfill()
               default:
@@ -166,7 +166,7 @@ class PromiseSpec: QuickSpec {
             })
 
           promise.resolve(string)
-          self.waitForExpectationsWithTimeout(2.0, handler:nil)
+          self.waitForExpectations(timeout: 2.0, handler:nil)
         }
       }
 
@@ -213,11 +213,11 @@ class PromiseSpec: QuickSpec {
         context("with a body that transforms result") {
           context("with a body throws an error") {
             it("rejects the promise") {
-              let failExpectation = self.expectationWithDescription("Then fail expectation")
+              let failExpectation = self.expectation(description: "Then fail expectation")
 
               promise
                 .then({ value in
-                  throw SpecError.NotFound
+                  throw SpecError.notFound
                 })
                 .fail({ error in
                   expect(error is SpecError).to(beTrue())
@@ -225,13 +225,13 @@ class PromiseSpec: QuickSpec {
                 })
 
               promise.resolve(string)
-              self.waitForExpectationsWithTimeout(2.0, handler:nil)
+              self.waitForExpectations(timeout: 2.0, handler:nil)
             }
           }
 
           context("with a body that returns a value") {
             it("resolves the promise") {
-              let doneExpectation = self.expectationWithDescription("Then done expectation")
+              let doneExpectation = self.expectation(description: "Then done expectation")
 
               promise
                 .then({ value in
@@ -243,7 +243,7 @@ class PromiseSpec: QuickSpec {
                 })
 
               promise.resolve(string)
-              self.waitForExpectationsWithTimeout(2.0, handler:nil)
+              self.waitForExpectations(timeout: 2.0, handler:nil)
             }
           }
         }
@@ -251,12 +251,12 @@ class PromiseSpec: QuickSpec {
         context("with a body that returns a new promise") {
           context("with a rejected promise") {
             it("rejects the promise") {
-              let failExpectation = self.expectationWithDescription("Then fail expectation")
+              let failExpectation = self.expectation(description: "Then fail expectation")
 
               promise
                 .then({ value in
                   return Promise({
-                    throw SpecError.NotFound
+                    throw SpecError.notFound
                   })
                 })
                 .fail({ error in
@@ -265,13 +265,13 @@ class PromiseSpec: QuickSpec {
                 })
 
               promise.resolve(string)
-              self.waitForExpectationsWithTimeout(2.0, handler:nil)
+              self.waitForExpectations(timeout: 2.0, handler:nil)
             }
           }
 
           context("with a body that returns a value") {
             it("with a resolved promise") {
-              let doneExpectation = self.expectationWithDescription("Then done expectation")
+              let doneExpectation = self.expectation(description: "Then done expectation")
 
               promise
                 .then({ value in
@@ -285,7 +285,7 @@ class PromiseSpec: QuickSpec {
                 })
 
               promise.resolve(string)
-              self.waitForExpectationsWithTimeout(2.0, handler:nil)
+              self.waitForExpectations(timeout: 2.0, handler:nil)
             }
           }
         }

@@ -20,7 +20,7 @@ class FunctionsSpec: QuickSpec {
 
         context("with a body throws an error") {
           it("rejects the promise") {
-            let failExpectation = self.expectationWithDescription("Fail expectation")
+            let failExpectation = self.expectation(description: "Fail expectation")
 
             when(promise1, promise2, promise3)
               .fail({ error in
@@ -29,16 +29,16 @@ class FunctionsSpec: QuickSpec {
               })
 
             promise1.resolve(1)
-            promise2.reject(SpecError.NotFound)
+            promise2.reject(SpecError.notFound)
             promise3.resolve(1)
 
-            self.waitForExpectationsWithTimeout(2.0, handler:nil)
+            self.waitForExpectations(timeout: 2.0, handler:nil)
           }
         }
 
         context("with a body that returns a value") {
           it("resolves the promise") {
-            let doneExpectation = self.expectationWithDescription("Done expectation")
+            let doneExpectation = self.expectation(description: "Done expectation")
 
             when(promise1, promise2, promise3)
               .done({ value1, value2, value3 in
@@ -52,7 +52,7 @@ class FunctionsSpec: QuickSpec {
             promise2.resolve(string)
             promise3.resolve(3)
 
-            self.waitForExpectationsWithTimeout(2.0, handler:nil)
+            self.waitForExpectations(timeout: 2.0, handler:nil)
           }
         }
       }

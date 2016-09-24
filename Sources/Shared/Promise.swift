@@ -31,8 +31,8 @@ open class Promise<T> {
   }
 
   public init(queue: DispatchQueue = mainQueue, state: State<T> = .pending) {
-    self.state = state
     self.queue = queue
+    self.state = state
   }
 
   // MARK: - States
@@ -161,11 +161,11 @@ extension Promise {
     return promise
   }
 
-  public func thenInBackground<U>(_ body: (T) throws -> U) -> Promise<U> {
+  public func thenInBackground<U>(_ body: @escaping (T) throws -> U) -> Promise<U> {
     return then(on: backgroundQueue, body)
   }
 
-  public func thenInBackground<U>(_ body: (T) throws -> Promise<U>) -> Promise<U> {
+  public func thenInBackground<U>(_ body: @escaping (T) throws -> Promise<U>) -> Promise<U> {
     return then(on: backgroundQueue, body)
   }
 
