@@ -57,17 +57,17 @@ open class Promise<T> {
 
   // MARK: - Callbacks
 
-  open func done(_ handler: @escaping DoneHandler) -> Self {
+  @discardableResult open func done(_ handler: @escaping DoneHandler) -> Self {
     doneHandler = handler
     return self
   }
 
-  open func fail(_ handler: @escaping FailureHandler) -> Self {
+  @discardableResult open func fail(_ handler: @escaping FailureHandler) -> Self {
     failureHandler = handler
     return self
   }
 
-  open func always(_ handler: @escaping CompletionHandler) -> Self {
+  @discardableResult open func always(_ handler: @escaping CompletionHandler) -> Self {
     completionHandler = handler
     return self
   }
