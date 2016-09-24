@@ -1,25 +1,25 @@
 import Foundation
 
-public class Promise<T> {
+open class Promise<T> {
 
-  public typealias DoneHandler = T -> Void
-  public typealias FailureHandler = ErrorType -> Void
-  public typealias CompletionHandler = Result<T> -> Void
+  public typealias DoneHandler = (T) -> Void
+  public typealias FailureHandler = (Error) -> Void
+  public typealias CompletionHandler = (Result<T>) -> Void
 
-  public let key = NSUUID().UUIDString
+  open let key = UUID().uuidString
 
-  var queue: dispatch_queue_t
-  private(set) var state: State<T>
+  var queue: DispatchQueue
+  fileprivate(set) var state: State<T>
 
-  private(set) var observer: Observer<T>?
-  private(set) var doneHandler: DoneHandler?
-  private(set) var failureHandler: FailureHandler?
-  private(set) var completionHandler: CompletionHandler?
+  fileprivate(set) var observer: Observer<T>?
+  fileprivate(set) var doneHandler: DoneHandler?
+  fileprivate(set) var failureHandler: FailureHandler?
+  fileprivate(set) var completionHandler: CompletionHandler?
 
   // MARK: - Initialization
 
-  public init(queue: dispatch_queue_t = mainQueue, @noescape _ body: Void throws -> T) {
-    state = .Pending
+  public init(queue: DispatchQueue = mainQueue, _ body: (Void) throws -> T) {
+    state = .pending
     self.queue = queue
 
     do {
@@ -30,53 +30,53 @@ public class Promise<T> {
     }
   }
 
-  public init(queue: dispatch_queue_t = mainQueue, state: State<T> = .Pending) {
+  public init(queue: DispatchQueue = mainQueue, state: State<T> = .pending) {
     self.state = state
     self.queue = queue
   }
 
   // MARK: - States
 
-  public func reject(error: ErrorType) {
+  open func reject(_ error: Error) {
     guard self.state.isPending else {
       return
     }
 
-    let state: State<T> = .Rejected(error: error)
+    let state: State<T> = .rejected(error: error)
     update(state: state)
   }
 
-  public func resolve(value: T) {
+  open func resolve(_ value: T) {
     guard self.state.isPending else {
       return
     }
 
-    let state: State<T> = .Resolved(value: value)
+    let state: State<T> = .resolved(value: value)
     update(state: state)
   }
 
   // MARK: - Callbacks
 
-  public func done(handler: DoneHandler) -> Self {
+  open func done(_ handler: @escaping DoneHandler) -> Self {
     doneHandler = handler
     return self
   }
 
-  public func fail(handler: FailureHandler) -> Self {
+  open func fail(_ handler: @escaping FailureHandler) -> Self {
     failureHandler = handler
     return self
   }
 
-  public func always(handler: CompletionHandler) -> Self {
+  open func always(_ handler: @escaping CompletionHandler) -> Self {
     completionHandler = handler
     return self
   }
 
   // MARK: - Helpers
 
-  private func update(state state: State<T>?) {
+  fileprivate func update(state: State<T>?) {
     dispatch(queue) {
-      guard let state = state, result = state.result else {
+      guard let state = state, let result = state.result else {
         return
       }
 
@@ -85,11 +85,11 @@ public class Promise<T> {
     }
   }
 
-  private func notify(result: Result<T>) {
+  fileprivate func notify(_ result: Result<T>) {
     switch result {
-    case let .Success(value):
+    case let .success(value):
       doneHandler?(value)
-    case let .Failure(error):
+    case let .failure(error):
       failureHandler?(error)
     }
 
@@ -107,10 +107,10 @@ public class Promise<T> {
     observer = nil
   }
 
-  private func addObserver<U>(on queue: dispatch_queue_t, promise: Promise<U>, _ body: T throws -> U?) {
+  fileprivate func addObserver<U>(on queue: DispatchQueue, promise: Promise<U>, _ body: @escaping (T) throws -> U?) {
     observer = Observer(queue: queue) { result in
       switch result {
-      case let .Success(value):
+      case let .success(value):
         do {
           if let result = try body(value) {
             promise.resolve(result)
@@ -118,7 +118,7 @@ public class Promise<T> {
         } catch {
           promise.reject(error)
         }
-      case let .Failure(error):
+      case let .failure(error):
         promise.reject(error)
       }
     }
@@ -126,11 +126,11 @@ public class Promise<T> {
     update(state: state)
   }
 
-  private func dispatch(queue: dispatch_queue_t, closure: () -> Void) {
+  fileprivate func dispatch(_ queue: DispatchQueue, closure: @escaping () -> Void) {
     if queue === instantQueue {
       closure()
     } else {
-      dispatch_async(queue, closure)
+      queue.async(execute: closure)
     }
   }
 }
@@ -139,14 +139,14 @@ public class Promise<T> {
 
 extension Promise {
 
-  public func then<U>(on queue: dispatch_queue_t = mainQueue, _ body: T throws -> U) -> Promise<U> {
+  public func then<U>(on queue: DispatchQueue = mainQueue, _ body: @escaping (T) throws -> U) -> Promise<U> {
     let promise = Promise<U>()
     addObserver(on: queue, promise: promise, body)
 
     return promise
   }
 
-  public func then<U>(on queue: dispatch_queue_t = mainQueue, _ body: T throws -> Promise<U>) -> Promise<U> {
+  public func then<U>(on queue: DispatchQueue = mainQueue, _ body: @escaping (T) throws -> Promise<U>) -> Promise<U> {
     let promise = Promise<U>()
 
     addObserver(on: queue, promise: promise) { value -> U? in
@@ -161,11 +161,11 @@ extension Promise {
     return promise
   }
 
-  public func thenInBackground<U>(body: T throws -> U) -> Promise<U> {
+  public func thenInBackground<U>(_ body: (T) throws -> U) -> Promise<U> {
     return then(on: backgroundQueue, body)
   }
 
-  public func thenInBackground<U>(body: T throws -> Promise<U>) -> Promise<U> {
+  public func thenInBackground<U>(_ body: (T) throws -> Promise<U>) -> Promise<U> {
     return then(on: backgroundQueue, body)
   }
 
