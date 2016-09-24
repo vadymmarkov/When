@@ -4,7 +4,7 @@ import Foundation
 import XCPlayground
 import When
 
-enum Error: ErrorType {
+enum Error: Swift.Error {
   case NotFound
 }
 
@@ -23,17 +23,17 @@ Promise({
 
 // MARK: - A chain example
 
-let promise = Promise<NSData>()
+let promise = Promise<Data>()
 promise
   .then({ data -> Int in
-    return data.length
+    return data.count
   }).then({ length -> Bool in
     return length > 5
   }).done({ value in
     print(value)
   })
 
-promise.resolve("String".dataUsingEncoding(NSUTF8StringEncoding)!)
+promise.resolve("String".data(using: .utf8)!)
 
 // MARK: - With a body that transforms a result
 
