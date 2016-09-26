@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D5B2E89E1C3A780C00C0327D"
+               BlueprintIdentifier = "D5E4D5E11D98399C003770B2"
                BuildableName = "When.framework"
-               BlueprintName = "When-iOS"
+               BlueprintName = "When-tvOS"
                ReferencedContainer = "container:When.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D5B2E8A81C3A780C00C0327D"
-               BuildableName = "When-iOS-Tests.xctest"
-               BlueprintName = "When-iOS-Tests"
+               BlueprintIdentifier = "D5E4D5E91D98399C003770B2"
+               BuildableName = "When-tvOS-Tests.xctest"
+               BlueprintName = "When-tvOS-Tests"
                ReferencedContainer = "container:When.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D5B2E89E1C3A780C00C0327D"
+            BlueprintIdentifier = "D5E4D5E11D98399C003770B2"
             BuildableName = "When.framework"
-            BlueprintName = "When-iOS"
+            BlueprintName = "When-tvOS"
             ReferencedContainer = "container:When.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D5B2E89E1C3A780C00C0327D"
+            BlueprintIdentifier = "D5E4D5E11D98399C003770B2"
             BuildableName = "When.framework"
-            BlueprintName = "When-iOS"
+            BlueprintName = "When-tvOS"
             ReferencedContainer = "container:When.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D5B2E89E1C3A780C00C0327D"
+            BlueprintIdentifier = "D5E4D5E11D98399C003770B2"
             BuildableName = "When.framework"
-            BlueprintName = "When-iOS"
+            BlueprintName = "When-tvOS"
             ReferencedContainer = "container:When.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

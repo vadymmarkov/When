@@ -1,5 +1,5 @@
 import Foundation
 
-enum SpecError: ErrorType {
-  case NotFound
+enum SpecError: Error {
+  case notFound
 }

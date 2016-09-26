@@ -10,7 +10,7 @@ class StateSpec: QuickSpec {
 
       context("when it's pending") {
         beforeEach {
-          state = .Pending
+          state = .pending
         }
 
         describe("#isPending") {
@@ -47,7 +47,7 @@ class StateSpec: QuickSpec {
 
       context("when it's resolved") {
         beforeEach {
-          state = .Resolved(value: "Yay!")
+          state = .resolved(value: "Yay!")
         }
 
         describe("#isPending") {
@@ -84,7 +84,7 @@ class StateSpec: QuickSpec {
 
       context("when it's rejected") {
         beforeEach {
-          state = .Rejected(error: SpecError.NotFound)
+          state = .rejected(error: SpecError.notFound)
         }
 
         describe("#isPending") {

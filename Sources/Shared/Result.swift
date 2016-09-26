@@ -1,39 +1,39 @@
 public enum Result<T> {
-  case Success(value: T)
-  case Failure(error: ErrorType)
+  case success(value: T)
+  case failure(error: Error)
 
   public var value: T? {
     let value: T?
 
     switch self {
-    case let .Success(successValue):
+    case let .success(successValue):
       value = successValue
-    case .Failure:
+    case .failure:
       value = nil
     }
 
     return value
   }
 
-  public var error: ErrorType? {
-    let error: ErrorType?
+  public var error: Error? {
+    let error: Error?
 
     switch self {
-    case let .Failure(errorValue):
+    case let .failure(errorValue):
       error = errorValue
-    case .Success:
+    case .success:
       error = nil
     }
 
     return error
   }
 
-  public func map<U>(closure: T -> U) -> Result<U> {
+  public func map<U>(_ closure: (T) -> U) -> Result<U> {
     switch self {
-    case let .Success(value):
-      return .Success(value: closure(value))
-    case let .Failure(error):
-      return Result<U>.Failure(error: error)
+    case let .success(value):
+      return .success(value: closure(value))
+    case let .failure(error):
+      return Result<U>.failure(error: error)
     }
   }
 }
