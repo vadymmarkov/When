@@ -5,7 +5,7 @@ import XCPlayground
 import When
 
 enum Error: Swift.Error {
-  case NotFound
+  case notFound
 }
 
 // MARK: - Basic usage
@@ -41,7 +41,7 @@ promise.resolve("String".data(using: .utf8)!)
 let promise1 = Promise<String>()
 promise1
   .then({ value in
-    throw Error.NotFound
+    throw Error.notFound
   })
   .fail({ error in
     print(error)
@@ -68,7 +68,7 @@ let promise3 = Promise<String>()
 promise3
   .then({ value in
     return Promise({
-      throw Error.NotFound
+      throw Error.notFound
     })
   })
   .fail({ error in
