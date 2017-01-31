@@ -1,4 +1,6 @@
+#if !COCOAPODS
 import When
+#endif
 import RxSwift
 
 // MARK: - Observable
