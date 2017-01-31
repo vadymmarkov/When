@@ -253,6 +253,12 @@ it, simply add the following line to your Podfile:
 pod 'When'
 ```
 
+For `RxSwift` extensions you can use CocoaPods subspecs:
+
+```ruby
+pod 'When/RxSwift'
+```
+
 **When** is also available through [Carthage](https://github.com/Carthage/Carthage).
 To install just write into your Cartfile:
 
