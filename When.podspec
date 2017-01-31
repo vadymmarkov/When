@@ -16,9 +16,16 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.2'
 
   s.requires_arc = true
-  s.ios.source_files = 'Sources/**/*'
-  s.tvos.source_files = 'Sources/**/*'
-  s.osx.source_files = 'Sources/**/*'
+  s.default_subspec = "Core"
 
-  s.frameworks = 'Foundation'
+  s.subspec "Core" do |ss|
+    ss.source_files  = "Sources/When/**/*"
+    ss.framework  = "Foundation"
+  end
+
+  s.subspec "RxSwift" do |ss|
+    ss.source_files = "Sources/RxWhen/**/*"
+    ss.dependency "When/Core"
+    ss.dependency "RxSwift", "~> 3.2.0"
+  end
 end
