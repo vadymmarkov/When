@@ -45,6 +45,10 @@ open class Promise<T> {
     self.queue = queue
     self.state = state
   }
+    
+  public convenience init(queue: DispatchQueue = mainQueue, _ value: T) {
+    self.init(queue: queue, state: .resolved(value: value))
+  }
 
   // MARK: - States
 
