@@ -18,15 +18,17 @@ open class Promise<T> {
 
   // MARK: - Initialization
 
-  public init(queue: DispatchQueue = mainQueue, _ body: (Void) throws -> T) {
+  public init(queue: DispatchQueue = mainQueue, _ body: @escaping (Void) throws -> T) {
     state = .pending
     self.queue = queue
 
-    do {
-      let value = try body()
-      resolve(value)
-    } catch {
-      reject(error)
+    dispatch(queue) {
+        do {
+          let value = try body()
+          self.resolve(value)
+        } catch {
+          self.reject(error)
+        }
     }
   }
 
