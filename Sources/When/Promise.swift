@@ -31,6 +31,15 @@ open class Promise<T> {
         }
     }
   }
+    
+  public init(queue: DispatchQueue = mainQueue, _ body: @escaping (_ resolve: (T) -> Void, _ reject: (Error) -> Void) -> Void) {
+    state = .pending
+    self.queue = queue
+    
+    dispatch(queue) {
+        body(self.resolve, self.reject)
+    }
+  }
 
   public init(queue: DispatchQueue = mainQueue, state: State<T> = .pending) {
     self.queue = queue
