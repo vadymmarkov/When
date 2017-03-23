@@ -9,7 +9,7 @@ open class Promise<T> {
   open let key = UUID().uuidString
 
   var queue: DispatchQueue
-  fileprivate(set) var state: State<T>
+  fileprivate(set) public var state: State<T>
 
   fileprivate(set) var observer: Observer<T>?
   fileprivate(set) var doneHandler: DoneHandler?

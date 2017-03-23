@@ -17,7 +17,7 @@ public func when<T, U, V>(_ p1: Promise<T>, _ p2: Promise<U>, _ p3: Promise<V>) 
   }
 }
 
-private func when<T>(_ promises: [Promise<T>]) -> Promise<Void> {
+public func when<T>(_ promises: [Promise<T>]) -> Promise<Void> {
   let masterPromise = Promise<Void>()
   var (total, resolved) = (promises.count, 0)
 
