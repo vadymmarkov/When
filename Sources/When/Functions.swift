@@ -18,28 +18,29 @@ public func when<T, U, V>(_ p1: Promise<T>, _ p2: Promise<U>, _ p3: Promise<V>) 
 }
 
 public func when<T>(_ promises: [Promise<T>]) -> Promise<[T]> {
-    let masterPromise = Promise<[T]>()
-    var (total, resolved) = (promises.count, 0)
-    
-    if promises.isEmpty {
-        masterPromise.resolve([])
-    } else {
-        promises.forEach { promise in
-            _=promise
-                .done({ value in
-                    barrierQueue.sync {
-                        resolved += 1
-                        if resolved == total {
-                            masterPromise.resolve(promises.map{ $0.state.result!.value! })
-                        }
-                    }
-                })
-                .fail({ error in
-                    barrierQueue.sync {
-                        masterPromise.reject(error)
-                    }
-                })
-        }
+  let masterPromise = Promise<[T]>()
+  var (total, resolved) = (promises.count, 0)
+  
+  if promises.isEmpty {
+    masterPromise.resolve([])
+  } else {
+    promises.forEach { promise in
+      _ = promise
+        .done({ value in
+          barrierQueue.sync {
+            resolved += 1
+            if resolved == total {
+              masterPromise.resolve(promises.map{ $0.state.result!.value! })
+            }
+          }
+        })
+        .fail({ error in
+          barrierQueue.sync {
+            masterPromise.reject(error)
+          }
+        })
     }
-    return masterPromise
+  }
+  
+  return masterPromise
 }

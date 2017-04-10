@@ -23,31 +23,28 @@ open class Promise<T> {
     self.queue = queue
 
     dispatch(queue) {
-        do {
-          let value = try body()
-          self.resolve(value)
-        } catch {
-          self.reject(error)
-        }
+      do {
+        let value = try body()
+        self.resolve(value)
+      } catch {
+        self.reject(error)
+      }
     }
   }
     
-  public init(queue: DispatchQueue = mainQueue, _ body: @escaping (_ resolve: (T) -> Void, _ reject: (Error) -> Void) -> Void) {
+  public init(queue: DispatchQueue = mainQueue,
+              _ body: @escaping (_ resolve: (T) -> Void, _ reject: (Error) -> Void) -> Void) {
     state = .pending
     self.queue = queue
     
     dispatch(queue) {
-        body(self.resolve, self.reject)
+      body(self.resolve, self.reject)
     }
   }
 
   public init(queue: DispatchQueue = mainQueue, state: State<T> = .pending) {
     self.queue = queue
     self.state = state
-  }
-    
-  public convenience init(queue: DispatchQueue = mainQueue, _ value: T) {
-    self.init(queue: queue, state: .resolved(value: value))
   }
 
   // MARK: - States
