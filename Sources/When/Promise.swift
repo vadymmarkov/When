@@ -9,7 +9,7 @@ open class Promise<T> {
   open let key = UUID().uuidString
 
   var queue: DispatchQueue
-  fileprivate(set) var state: State<T>
+  fileprivate(set) public var state: State<T>
 
   fileprivate(set) var observer: Observer<T>?
   fileprivate(set) var doneHandler: DoneHandler?
@@ -18,21 +18,36 @@ open class Promise<T> {
 
   // MARK: - Initialization
 
-  public init(queue: DispatchQueue = mainQueue, _ body: (Void) throws -> T) {
+  public init(queue: DispatchQueue = mainQueue, _ body: @escaping (Void) throws -> T) {
     state = .pending
     self.queue = queue
 
-    do {
-      let value = try body()
-      resolve(value)
-    } catch {
-      reject(error)
+    dispatch(queue) {
+        do {
+          let value = try body()
+          self.resolve(value)
+        } catch {
+          self.reject(error)
+        }
+    }
+  }
+    
+  public init(queue: DispatchQueue = mainQueue, _ body: @escaping (_ resolve: (T) -> Void, _ reject: (Error) -> Void) -> Void) {
+    state = .pending
+    self.queue = queue
+    
+    dispatch(queue) {
+        body(self.resolve, self.reject)
     }
   }
 
   public init(queue: DispatchQueue = mainQueue, state: State<T> = .pending) {
     self.queue = queue
     self.state = state
+  }
+    
+  public convenience init(queue: DispatchQueue = mainQueue, _ value: T) {
+    self.init(queue: queue, state: .resolved(value: value))
   }
 
   // MARK: - States
