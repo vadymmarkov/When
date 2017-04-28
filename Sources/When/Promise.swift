@@ -11,10 +11,10 @@ open class Promise<T> {
   var queue: DispatchQueue
   fileprivate(set) public var state: State<T>
 
-  fileprivate(set) var observer: Observer<T>?
-  fileprivate(set) var doneHandler: DoneHandler?
-  fileprivate(set) var failureHandler: FailureHandler?
-  fileprivate(set) var completionHandler: CompletionHandler?
+  fileprivate(set) var observers: [Observer<T>]?
+  fileprivate(set) var doneHandlers: [DoneHandler]?
+  fileprivate(set) var failureHandlers: [FailureHandler]?
+  fileprivate(set) var completionHandlers: [CompletionHandler]?
 
   // MARK: - Initialization
 
@@ -70,17 +70,17 @@ open class Promise<T> {
   // MARK: - Callbacks
 
   @discardableResult open func done(_ handler: @escaping DoneHandler) -> Self {
-    doneHandler = handler
+    doneHandlers?.append(handler) ?? { doneHandlers = [handler] }()
     return self
   }
 
   @discardableResult open func fail(_ handler: @escaping FailureHandler) -> Self {
-    failureHandler = handler
+    failureHandlers?.append(handler) ?? { failureHandlers = [handler] }()
     return self
   }
 
   @discardableResult open func always(_ handler: @escaping CompletionHandler) -> Self {
-    completionHandler = handler
+    completionHandlers?.append(handler) ?? { completionHandlers = [handler] }()
     return self
   }
 
@@ -100,27 +100,33 @@ open class Promise<T> {
   fileprivate func notify(_ result: Result<T>) {
     switch result {
     case let .success(value):
-      doneHandler?(value)
+      for doneHandler in doneHandlers ?? [] {
+        doneHandler(value)
+      }
     case let .failure(error):
-      failureHandler?(error)
+      for failureHandler in failureHandlers ?? [] {
+        failureHandler(error)
+      }
     }
 
-    completionHandler?(result)
+    for completionHandler in completionHandlers ?? [] {
+      completionHandler(result)
+    }
 
-    if let observer = observer {
+    for observer in observers ?? [] {
       dispatch(observer.queue) {
         observer.notify(result)
       }
     }
 
-    doneHandler = nil
-    failureHandler = nil
-    completionHandler = nil
-    observer = nil
+    doneHandlers = nil
+    failureHandlers = nil
+    completionHandlers = nil
+    observers = nil
   }
 
   fileprivate func addObserver<U>(on queue: DispatchQueue, promise: Promise<U>, _ body: @escaping (T) throws -> U?) {
-    observer = Observer(queue: queue) { result in
+    let observer = Observer<T>(queue: queue) { result in
       switch result {
       case let .success(value):
         do {
@@ -134,6 +140,7 @@ open class Promise<T> {
         promise.reject(error)
       }
     }
+    observers?.append(observer) ?? { observers = [observer] }()
 
     update(state: state)
   }
