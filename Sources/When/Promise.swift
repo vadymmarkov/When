@@ -159,14 +159,14 @@ open class Promise<T> {
 extension Promise {
 
   public func then<U>(on queue: DispatchQueue = mainQueue, _ body: @escaping (T) throws -> U) -> Promise<U> {
-    let promise = Promise<U>()
+    let promise = Promise<U>(queue: queue)
     addObserver(on: queue, promise: promise, body)
 
     return promise
   }
 
   public func then<U>(on queue: DispatchQueue = mainQueue, _ body: @escaping (T) throws -> Promise<U>) -> Promise<U> {
-    let promise = Promise<U>()
+    let promise = Promise<U>(queue: queue)
 
     addObserver(on: queue, promise: promise) { value -> U? in
       let nextPromise = try body(value)
