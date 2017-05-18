@@ -98,6 +98,35 @@ class PromiseSpec: QuickSpec {
             self.waitForExpectations(timeout: 2.0, handler:nil)
           }
         }
+
+        context("with an async body that returns a value") {
+          let string = "Success!"
+
+          func loadString(withCompletionHandler handler: @escaping (String) -> Void) {
+            DispatchQueue(label: "async closure").async {
+              handler(string)
+            }
+          }
+
+          beforeEach {
+            promise = Promise(loadString)
+          }
+
+          it("resolves the promise") {
+            let doneExpectation = self.expectation(description: "Done expectation")
+
+            promise.done { value in
+              expect(value).to(equal(string))
+              expect(promise.state.isResolved).to(beTrue())
+              expect(promise.state.result?.value).to(equal(string))
+              expect(promise.state.result?.error).to(beNil())
+
+              doneExpectation.fulfill()
+            }
+
+            self.waitForExpectations(timeout: 2.0, handler: nil)
+          }
+        }
       }
 
       describe("#reject") {

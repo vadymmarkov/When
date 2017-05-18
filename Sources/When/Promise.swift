@@ -18,6 +18,7 @@ open class Promise<T> {
 
   // MARK: - Initialization
 
+  /// Create a promise that resolves using a synchronous closure
   public init(queue: DispatchQueue = mainQueue, _ body: @escaping (Void) throws -> T) {
     state = .pending
     self.queue = queue
@@ -31,7 +32,8 @@ open class Promise<T> {
       }
     }
   }
-    
+
+  /// Create a promise that resolves using an asynchronous closure that can either resolve or reject
   public init(queue: DispatchQueue = mainQueue,
               _ body: @escaping (_ resolve: (T) -> Void, _ reject: (Error) -> Void) -> Void) {
     state = .pending
@@ -42,6 +44,17 @@ open class Promise<T> {
     }
   }
 
+  /// Create a promise that resolves using an asynchronous closure that can only resolve
+  public init(queue: DispatchQueue = mainQueue, _ body: @escaping (@escaping (T) -> Void) -> Void) {
+    state = .pending
+    self.queue = queue
+
+    dispatch(queue) {
+      body(self.resolve)
+    }
+  }
+
+  /// Create a promise with a given state
   public init(queue: DispatchQueue = mainQueue, state: State<T> = .pending) {
     self.queue = queue
     self.state = state
