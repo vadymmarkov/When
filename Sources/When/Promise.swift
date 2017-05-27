@@ -8,7 +8,6 @@ open class Promise<T> {
   public let key = UUID().uuidString
   fileprivate(set) var queue: DispatchQueue
   fileprivate(set) public var state: State<T>
-
   fileprivate(set) var observer: Observer<T>?
   fileprivate(set) var doneHandler: DoneHandler?
   fileprivate(set) var failureHandler: FailureHandler?
@@ -16,7 +15,7 @@ open class Promise<T> {
 
   // MARK: - Initialization
 
-  /// Create a promise that resolves using a synchronous closure
+  /// Create a promise that resolves using a synchronous closure.
   public init(queue: DispatchQueue = mainQueue, _ body: @escaping (Void) throws -> T) {
     state = .pending
     self.queue = queue
@@ -31,7 +30,7 @@ open class Promise<T> {
     }
   }
 
-  /// Create a promise that resolves using an asynchronous closure that can either resolve or reject
+  /// Create a promise that resolves using an asynchronous closure that can either resolve or reject.
   public init(queue: DispatchQueue = mainQueue,
               _ body: @escaping (_ resolve: (T) -> Void, _ reject: (Error) -> Void) -> Void) {
     state = .pending
@@ -42,7 +41,7 @@ open class Promise<T> {
     }
   }
 
-  /// Create a promise that resolves using an asynchronous closure that can only resolve
+  /// Create a promise that resolves using an asynchronous closure that can only resolve.
   public init(queue: DispatchQueue = mainQueue, _ body: @escaping (@escaping (T) -> Void) -> Void) {
     state = .pending
     self.queue = queue
@@ -52,7 +51,7 @@ open class Promise<T> {
     }
   }
 
-  /// Create a promise with a given state
+  /// Create a promise with a given state.
   public init(queue: DispatchQueue = mainQueue, state: State<T> = .pending) {
     self.queue = queue
     self.state = state
@@ -60,6 +59,9 @@ open class Promise<T> {
 
   // MARK: - States
 
+  /**
+   Rejects a promise with a given error.
+  */
   public func reject(_ error: Error) {
     guard self.state.isPending else {
       return
@@ -69,6 +71,9 @@ open class Promise<T> {
     update(state: state)
   }
 
+  /**
+   Resolves a promise with a given value.
+   */
   public func resolve(_ value: T) {
     guard self.state.isPending else {
       return
@@ -78,17 +83,24 @@ open class Promise<T> {
     update(state: state)
   }
 
+  /// Rejects a promise with the cancelled error.
   public func cancel() {
     reject(PromiseError.cancelled)
   }
 
   // MARK: - Callbacks
 
+  /**
+   Adds a handler to be called when the promise object is resolved with a value.
+   */
   @discardableResult public func done(_ handler: @escaping DoneHandler) -> Self {
     doneHandler = handler
     return self
   }
 
+  /**
+   Adds a handler to be called when the promise object is rejected with an error.
+  */
   @discardableResult public func fail(policy: FailurePolicy = .notCancelled,
                                     _ handler: @escaping FailureHandler) -> Self {
     failureHandler = { error in
@@ -100,6 +112,10 @@ open class Promise<T> {
     return self
   }
 
+  /**
+   Adds a handler to be called when the promise object is either resolved or rejected.
+   This callback will be called after done or fail handlers
+  **/
   @discardableResult public func always(_ handler: @escaping CompletionHandler) -> Self {
     completionHandler = handler
     return self
