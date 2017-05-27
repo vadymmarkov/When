@@ -1,14 +1,12 @@
 import Foundation
 
 open class Promise<T> {
-
   public typealias DoneHandler = (T) -> Void
   public typealias FailureHandler = (Error) -> Void
   public typealias CompletionHandler = (Result<T>) -> Void
 
-  open let key = UUID().uuidString
-
-  var queue: DispatchQueue
+  public let key = UUID().uuidString
+  fileprivate(set) var queue: DispatchQueue
   fileprivate(set) public var state: State<T>
 
   fileprivate(set) var observer: Observer<T>?
@@ -62,7 +60,7 @@ open class Promise<T> {
 
   // MARK: - States
 
-  open func reject(_ error: Error) {
+  public func reject(_ error: Error) {
     guard self.state.isPending else {
       return
     }
@@ -71,7 +69,7 @@ open class Promise<T> {
     update(state: state)
   }
 
-  open func resolve(_ value: T) {
+  public func resolve(_ value: T) {
     guard self.state.isPending else {
       return
     }
@@ -80,26 +78,36 @@ open class Promise<T> {
     update(state: state)
   }
 
+  public func cancel() {
+    reject(PromiseError.cancelled)
+  }
+
   // MARK: - Callbacks
 
-  @discardableResult open func done(_ handler: @escaping DoneHandler) -> Self {
+  @discardableResult public func done(_ handler: @escaping DoneHandler) -> Self {
     doneHandler = handler
     return self
   }
 
-  @discardableResult open func fail(_ handler: @escaping FailureHandler) -> Self {
-    failureHandler = handler
+  @discardableResult public func fail(policy: FailurePolicy = .notCancelled,
+                                    _ handler: @escaping FailureHandler) -> Self {
+    failureHandler = { error in
+      if case PromiseError.cancelled = error, policy == .notCancelled {
+        return
+      }
+      handler(error)
+    }
     return self
   }
 
-  @discardableResult open func always(_ handler: @escaping CompletionHandler) -> Self {
+  @discardableResult public func always(_ handler: @escaping CompletionHandler) -> Self {
     completionHandler = handler
     return self
   }
 
   // MARK: - Helpers
 
-  fileprivate func update(state: State<T>?) {
+  private func update(state: State<T>?) {
     dispatch(queue) {
       guard let state = state, let result = state.result else {
         return
@@ -110,7 +118,7 @@ open class Promise<T> {
     }
   }
 
-  fileprivate func notify(_ result: Result<T>) {
+  private func notify(_ result: Result<T>) {
     switch result {
     case let .success(value):
       doneHandler?(value)
@@ -151,7 +159,7 @@ open class Promise<T> {
     update(state: state)
   }
 
-  fileprivate func dispatch(_ queue: DispatchQueue, closure: @escaping () -> Void) {
+  private func dispatch(_ queue: DispatchQueue, closure: @escaping () -> Void) {
     if queue === instantQueue {
       closure()
     } else {
@@ -163,16 +171,15 @@ open class Promise<T> {
 // MARK: - Then
 
 extension Promise {
-
   public func then<U>(on queue: DispatchQueue = mainQueue, _ body: @escaping (T) throws -> U) -> Promise<U> {
-    let promise = Promise<U>()
+    let promise = Promise<U>(queue: queue)
     addObserver(on: queue, promise: promise, body)
 
     return promise
   }
 
   public func then<U>(on queue: DispatchQueue = mainQueue, _ body: @escaping (T) throws -> Promise<U>) -> Promise<U> {
-    let promise = Promise<U>()
+    let promise = Promise<U>(queue: queue)
 
     addObserver(on: queue, promise: promise) { value -> U? in
       let nextPromise = try body(value)
