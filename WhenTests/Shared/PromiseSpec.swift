@@ -221,6 +221,53 @@ class PromiseSpec: QuickSpec {
         }
       }
 
+      describe("#fail:policy") {
+        let string = "Success!"
+
+        beforeEach {
+          promise = Promise<String>()
+        }
+
+        context("all errors") {
+          it("invokes the handler") {
+            let failExpectation = self.expectation(description: "Fail expectation")
+
+            promise
+              .then({ value in
+                throw PromiseError.cancelled
+              })
+              .fail(policy: .allErrors, { error in
+                expect((error as? PromiseError) == .cancelled).to(beTrue())
+                failExpectation.fulfill()
+              })
+
+            promise.resolve(string)
+            self.waitForExpectations(timeout: 2.0, handler:nil)
+          }
+        }
+
+        context("all errors") {
+          it("does not invoke the handler") {
+            let failExpectation = self.expectation(description: "Fail expectation")
+
+            promise
+              .then({ value in
+                throw PromiseError.cancelled
+              })
+              .fail(policy: .notCancelled, { error in
+                fail("Handler should not be called")
+              })
+              .always({ result in
+                expect((result.error as? PromiseError) == .cancelled).to(beTrue())
+                failExpectation.fulfill()
+              })
+
+            promise.resolve(string)
+            self.waitForExpectations(timeout: 2.0, handler:nil)
+          }
+        }
+      }
+
       describe("#always") {
         beforeEach {
           promise = Promise<String>()
