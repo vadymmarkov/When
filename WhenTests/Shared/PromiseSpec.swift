@@ -366,6 +366,92 @@ class PromiseSpec: QuickSpec {
           }
         }
       }
+
+      describe("#recover") {
+        beforeEach {
+          promise = Promise<String>()
+        }
+
+        context("with a body that transforms result") {
+          context("with a body throws an error") {
+            it("rejects the promise") {
+              let failExpectation = self.expectation(description: "Then fail expectation")
+
+              promise
+                .recover({ error -> String in
+                  throw SpecError.notFound
+                })
+                .fail({ error in
+                  expect(error is SpecError).to(beTrue())
+                  failExpectation.fulfill()
+                })
+
+              promise.reject(SpecError.rejected)
+              self.waitForExpectations(timeout: 2.0, handler:nil)
+            }
+          }
+
+          context("with a body that returns a value") {
+            it("resolves the promise") {
+              let doneExpectation = self.expectation(description: "Then done expectation")
+
+              promise
+                .recover({ error in
+                  return "Recovered"
+                })
+                .done({ value in
+                  expect(value).to(equal("Recovered"))
+                  doneExpectation.fulfill()
+                })
+
+              promise.reject(SpecError.rejected)
+              self.waitForExpectations(timeout: 2.0, handler:nil)
+            }
+          }
+        }
+
+        context("with a body that returns a new promise") {
+          context("with a rejected promise") {
+            it("rejects the promise") {
+              let failExpectation = self.expectation(description: "Then fail expectation")
+
+              promise
+                .recover({ error in
+                  return Promise({
+                    throw SpecError.notFound
+                  })
+                })
+                .fail({ error in
+                  expect(error is SpecError).to(beTrue())
+                  failExpectation.fulfill()
+                })
+
+              promise.reject(SpecError.rejected)
+              self.waitForExpectations(timeout: 2.0, handler:nil)
+            }
+          }
+
+          context("with a body that returns a value") {
+            it("with a resolved promise") {
+              let doneExpectation = self.expectation(description: "Then done expectation")
+
+              promise
+                .recover({ error -> Promise<String> in
+                  return Promise({
+                    return "Recovered"
+                  })
+                })
+                .done({ value in
+                  expect(value).to(equal("Recovered"))
+                  doneExpectation.fulfill()
+                })
+
+              promise.reject(SpecError.rejected)
+              self.waitForExpectations(timeout: 2.0, handler:nil)
+            }
+          }
+        }
+      }
     }
   }
 }
