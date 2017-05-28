@@ -214,6 +214,9 @@ extension Promise {
     update(state: state)
   }
 
+  /**
+   Returns a promise with Void as a result type.
+   */
   public func asVoid(on queue: DispatchQueue = .main) -> Promise<Void> {
     return then(on: queue) { _ in return }
   }
