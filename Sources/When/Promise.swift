@@ -123,7 +123,7 @@ open class Promise<T> {
 
   // MARK: - Helpers
 
-  private func update(state: State<T>?) {
+  fileprivate func update(state: State<T>?) {
     dispatch(queue) {
       guard let state = state, let result = state.result else {
         return
@@ -156,6 +156,45 @@ open class Promise<T> {
     observer = nil
   }
 
+  private func dispatch(_ queue: DispatchQueue, closure: @escaping () -> Void) {
+    if queue === instantQueue {
+      closure()
+    } else {
+      queue.async(execute: closure)
+    }
+  }
+}
+
+// MARK: - Then
+
+extension Promise {
+  public func then<U>(on queue: DispatchQueue = mainQueue, _ body: @escaping (T) throws -> U) -> Promise<U> {
+    let promise = Promise<U>(queue: queue)
+    addObserver(on: queue, promise: promise, body)
+    return promise
+  }
+
+  public func then<U>(on queue: DispatchQueue = mainQueue, _ body: @escaping (T) throws -> Promise<U>) -> Promise<U> {
+    let promise = Promise<U>(queue: queue)
+    addObserver(on: queue, promise: promise) { value -> U? in
+      let nextPromise = try body(value)
+      nextPromise.addObserver(on: queue, promise: promise) { value -> U? in
+        return value
+      }
+
+      return nil
+    }
+    return promise
+  }
+
+  public func thenInBackground<U>(_ body: @escaping (T) throws -> U) -> Promise<U> {
+    return then(on: backgroundQueue, body)
+  }
+
+  public func thenInBackground<U>(_ body: @escaping (T) throws -> Promise<U>) -> Promise<U> {
+    return then(on: backgroundQueue, body)
+  }
+
   fileprivate func addObserver<U>(on queue: DispatchQueue, promise: Promise<U>, _ body: @escaping (T) throws -> U?) {
     observer = Observer(queue: queue) { result in
       switch result {
@@ -175,49 +214,61 @@ open class Promise<T> {
     update(state: state)
   }
 
-  private func dispatch(_ queue: DispatchQueue, closure: @escaping () -> Void) {
-    if queue === instantQueue {
-      closure()
-    } else {
-      queue.async(execute: closure)
-    }
+  func asVoid() -> Promise<Void> {
+    return then(on: instantQueue) { _ in return }
   }
 }
 
-// MARK: - Then
+// MARK: - Recover
 
 extension Promise {
-  public func then<U>(on queue: DispatchQueue = mainQueue, _ body: @escaping (T) throws -> U) -> Promise<U> {
-    let promise = Promise<U>(queue: queue)
-    addObserver(on: queue, promise: promise, body)
-
+  /**
+   Helps to recover from certain errors. Continues the chain if a given closure does not throw.
+   */
+  public func recover(on queue: DispatchQueue = mainQueue,
+                      _ body: @escaping (Error) throws -> T) -> Promise<T> {
+    let promise = Promise<T>(queue: queue)
+    addRecoverObserver(on: queue, promise: promise, body)
     return promise
   }
 
-  public func then<U>(on queue: DispatchQueue = mainQueue, _ body: @escaping (T) throws -> Promise<U>) -> Promise<U> {
-    let promise = Promise<U>(queue: queue)
-
-    addObserver(on: queue, promise: promise) { value -> U? in
-      let nextPromise = try body(value)
-      nextPromise.addObserver(on: queue, promise: promise) { value -> U? in
+  /**
+   Helps to recover from certain errors. Continues the chain if a given closure does not throw.
+   */
+  public func recover(on queue: DispatchQueue = mainQueue,
+                      _ body: @escaping (Error) throws -> Promise<T>) -> Promise<T> {
+    let promise = Promise<T>(queue: queue)
+    addRecoverObserver(on: queue, promise: promise) { error -> T? in
+      let nextPromise = try body(error)
+      nextPromise.addObserver(on: queue, promise: promise) { value -> T? in
         return value
       }
 
       return nil
     }
-
     return promise
   }
 
-  public func thenInBackground<U>(_ body: @escaping (T) throws -> U) -> Promise<U> {
-    return then(on: backgroundQueue, body)
-  }
+  /**
+   Adds a recover observer.
+   */
+  private func addRecoverObserver(on queue: DispatchQueue, promise: Promise<T>,
+                                  _ body: @escaping (Error) throws -> T?) {
+    observer = Observer(queue: queue) { result in
+      switch result {
+      case let .success(value):
+        promise.resolve(value)
+      case let .failure(error):
+        do {
+          if let result = try body(error) {
+            promise.resolve(result)
+          }
+        } catch {
+          promise.reject(error)
+        }
+      }
+    }
 
-  public func thenInBackground<U>(_ body: @escaping (T) throws -> Promise<U>) -> Promise<U> {
-    return then(on: backgroundQueue, body)
-  }
-
-  func asVoid() -> Promise<Void> {
-    return then(on: instantQueue) { _ in return }
+    update(state: state)
   }
 }
