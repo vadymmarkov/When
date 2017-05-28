@@ -2,6 +2,7 @@
 
 import Foundation
 import XCPlayground
+import PlaygroundSupport
 import When
 
 enum Error: Swift.Error {
@@ -14,7 +15,7 @@ Promise({
   return "String"
 }).always({ result in
   print("Always")
-  print(result.value)
+  print(result.value ?? "")
 }).done({ value in
   print(value)
 }).fail({ error in
@@ -91,21 +92,35 @@ promise4
 
 promise4.resolve("String")
 
+// MARK: - Recover
+
+let promise5 = Promise<String>()
+promise5
+  .then({ value -> String in
+    throw Error.notFound
+  })
+  .recover({ error -> String in
+    return "String"
+  })
+  .done({ value in
+    print(value)
+  })
+
 // MARK: - When
 
-let promise5 = Promise<Int>()
-let promise6 = Promise<String>()
-let promise7 = Promise<Int>()
+let promise6 = Promise<Int>()
+let promise7 = Promise<String>()
+let promise8 = Promise<Int>()
 
-when(promise5, promise6, promise7)
+when(promise6, promise7, promise8)
   .done({ value1, value2, value3 in
     print(value1)
     print(value2)
     print(value3)
   })
 
-promise5.resolve(1)
-promise6.resolve("String")
-promise7.resolve(3)
+promise6.resolve(1)
+promise7.resolve("String")
+promise8.resolve(3)
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
