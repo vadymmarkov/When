@@ -18,6 +18,8 @@
 		D582E5831ED9AD9400D0E21B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582E5821ED9AD9400D0E21B /* Error.swift */; };
 		D582E5841ED9AD9400D0E21B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582E5821ED9AD9400D0E21B /* Error.swift */; };
 		D582E5851ED9AD9400D0E21B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582E5821ED9AD9400D0E21B /* Error.swift */; };
+		D582E5861EDB17A400D0E21B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582E5821ED9AD9400D0E21B /* Error.swift */; };
+		D582E5871EDB17A500D0E21B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582E5821ED9AD9400D0E21B /* Error.swift */; };
 		D58B2C281E412E7D0099F6D7 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C231E412E7D0099F6D7 /* Functions.swift */; };
 		D58B2C291E412E7D0099F6D7 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C241E412E7D0099F6D7 /* Observer.swift */; };
 		D58B2C2A1E412E7D0099F6D7 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C251E412E7D0099F6D7 /* Promise.swift */; };
@@ -710,6 +712,7 @@
 				D58B2C3B1E412EEE0099F6D7 /* Result.swift in Sources */,
 				D58B2C3C1E412EEE0099F6D7 /* State.swift in Sources */,
 				D58B2C4E1E412FDC0099F6D7 /* Promise+Rx.swift in Sources */,
+				D582E5861EDB17A400D0E21B /* Error.swift in Sources */,
 				D58B2C3D1E412EEE0099F6D7 /* Promise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -723,6 +726,7 @@
 				D58B2C531E4130710099F6D7 /* Result.swift in Sources */,
 				D58B2C541E4130710099F6D7 /* State.swift in Sources */,
 				D58B2C551E4130710099F6D7 /* Promise.swift in Sources */,
+				D582E5871EDB17A500D0E21B /* Error.swift in Sources */,
 				D58B2C631E4130FD0099F6D7 /* Promise+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
