@@ -16,7 +16,7 @@ open class Promise<T> {
   // MARK: - Initialization
 
   /// Create a promise that resolves using a synchronous closure.
-  public init(queue: DispatchQueue = mainQueue, _ body: @escaping (Void) throws -> T) {
+  public init(queue: DispatchQueue = .main, _ body: @escaping (Void) throws -> T) {
     state = .pending
     self.queue = queue
 
@@ -31,7 +31,7 @@ open class Promise<T> {
   }
 
   /// Create a promise that resolves using an asynchronous closure that can either resolve or reject.
-  public init(queue: DispatchQueue = mainQueue,
+  public init(queue: DispatchQueue = .main,
               _ body: @escaping (_ resolve: (T) -> Void, _ reject: (Error) -> Void) -> Void) {
     state = .pending
     self.queue = queue
@@ -42,7 +42,7 @@ open class Promise<T> {
   }
 
   /// Create a promise that resolves using an asynchronous closure that can only resolve.
-  public init(queue: DispatchQueue = mainQueue, _ body: @escaping (@escaping (T) -> Void) -> Void) {
+  public init(queue: DispatchQueue = .main, _ body: @escaping (@escaping (T) -> Void) -> Void) {
     state = .pending
     self.queue = queue
 
@@ -52,7 +52,7 @@ open class Promise<T> {
   }
 
   /// Create a promise with a given state.
-  public init(queue: DispatchQueue = mainQueue, state: State<T> = .pending) {
+  public init(queue: DispatchQueue = .main, state: State<T> = .pending) {
     self.queue = queue
     self.state = state
   }
@@ -168,13 +168,13 @@ open class Promise<T> {
 // MARK: - Then
 
 extension Promise {
-  public func then<U>(on queue: DispatchQueue = mainQueue, _ body: @escaping (T) throws -> U) -> Promise<U> {
+  public func then<U>(on queue: DispatchQueue = .main, _ body: @escaping (T) throws -> U) -> Promise<U> {
     let promise = Promise<U>(queue: queue)
     addObserver(on: queue, promise: promise, body)
     return promise
   }
 
-  public func then<U>(on queue: DispatchQueue = mainQueue, _ body: @escaping (T) throws -> Promise<U>) -> Promise<U> {
+  public func then<U>(on queue: DispatchQueue = .main, _ body: @escaping (T) throws -> Promise<U>) -> Promise<U> {
     let promise = Promise<U>(queue: queue)
     addObserver(on: queue, promise: promise) { value -> U? in
       let nextPromise = try body(value)
@@ -214,8 +214,11 @@ extension Promise {
     update(state: state)
   }
 
-  func asVoid() -> Promise<Void> {
-    return then(on: instantQueue) { _ in return }
+  /**
+   Returns a promise with Void as a result type.
+   */
+  public func asVoid(on queue: DispatchQueue = .main) -> Promise<Void> {
+    return then(on: queue) { _ in return }
   }
 }
 
@@ -225,8 +228,7 @@ extension Promise {
   /**
    Helps to recover from certain errors. Continues the chain if a given closure does not throw.
    */
-  public func recover(on queue: DispatchQueue = mainQueue,
-                      _ body: @escaping (Error) throws -> T) -> Promise<T> {
+  public func recover(on queue: DispatchQueue = .main, _ body: @escaping (Error) throws -> T) -> Promise<T> {
     let promise = Promise<T>(queue: queue)
     addRecoverObserver(on: queue, promise: promise, body)
     return promise
@@ -235,7 +237,7 @@ extension Promise {
   /**
    Helps to recover from certain errors. Continues the chain if a given closure does not throw.
    */
-  public func recover(on queue: DispatchQueue = mainQueue,
+  public func recover(on queue: DispatchQueue = .main,
                       _ body: @escaping (Error) throws -> Promise<T>) -> Promise<T> {
     let promise = Promise<T>(queue: queue)
     addRecoverObserver(on: queue, promise: promise) { error -> T? in
