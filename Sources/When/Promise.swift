@@ -222,6 +222,9 @@ extension Promise {
 // MARK: - Recover
 
 extension Promise {
+  /**
+   Helps to recover from certain errors. Continues the chain if a given closure does not throw.
+   */
   public func recover(on queue: DispatchQueue = mainQueue,
                       _ body: @escaping (Error) throws -> T) -> Promise<T> {
     let promise = Promise<T>(queue: queue)
@@ -229,6 +232,9 @@ extension Promise {
     return promise
   }
 
+  /**
+   Helps to recover from certain errors. Continues the chain if a given closure does not throw.
+   */
   public func recover(on queue: DispatchQueue = mainQueue,
                       _ body: @escaping (Error) throws -> Promise<T>) -> Promise<T> {
     let promise = Promise<T>(queue: queue)
@@ -243,6 +249,9 @@ extension Promise {
     return promise
   }
 
+  /**
+   Adds a recover observer.
+   */
   private func addRecoverObserver(on queue: DispatchQueue, promise: Promise<T>,
                                   _ body: @escaping (Error) throws -> T?) {
     observer = Observer(queue: queue) { result in

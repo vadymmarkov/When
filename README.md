@@ -28,6 +28,7 @@ asynchronous code up to the next level.
   * [Fail](#fail)
   * [Always](#always)
   * [Then](#then)
+  * [Recover](#recover)
   * [When](#when)
 * [Installation](#installation)
 * [Author](#author)
@@ -227,6 +228,26 @@ promise1.thenInBackground({ data -> Int in
 promise2.thenInBackground({ data -> Promise<NSData> in
   //...
 })
+```
+
+### Recover
+Returns a new ***promise*** that can be used to continue the chain when an
+error was thrown.
+
+```swift
+let promise = Promise<String>()
+// Recover the chain
+promise
+  .recover({ error -> Promise<String> in
+    return Promise({
+      return "Recovered"
+    })
+  })
+  .done({ string in
+    print(string) // Recovered
+  })
+// Reject the promise
+promise.reject(Error.notFound)
 ```
 
 ### When
