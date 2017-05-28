@@ -16,9 +16,9 @@ class PromiseSpec: QuickSpec {
 
           it("has default optional fields") {
             expect(promise.observer).to(beNil())
-            expect(promise.doneHandler).to(beNil())
-            expect(promise.failureHandler).to(beNil())
-            expect(promise.completionHandler).to(beNil())
+            expect(promise.doneHandlers).to(beEmpty())
+            expect(promise.failureHandlers).to(beEmpty())
+            expect(promise.completionHandlers).to(beEmpty())
           }
 
           it("sets values") {
@@ -37,9 +37,9 @@ class PromiseSpec: QuickSpec {
 
           it("has default optional fields") {
             expect(promise.observer).to(beNil())
-            expect(promise.doneHandler).to(beNil())
-            expect(promise.failureHandler).to(beNil())
-            expect(promise.completionHandler).to(beNil())
+            expect(promise.doneHandlers).to(beEmpty())
+            expect(promise.failureHandlers).to(beEmpty())
+            expect(promise.completionHandlers).to(beEmpty())
           }
 
           it("sets values") {
@@ -203,10 +203,11 @@ class PromiseSpec: QuickSpec {
         beforeEach {
           promise = Promise<String>()
             .done({ object in })
+            .done({ object in })
         }
 
         it("sets a callback") {
-          expect(promise.doneHandler).toNot(beNil())
+          expect(promise.doneHandlers.count).to(equal(2))
         }
       }
 
@@ -217,7 +218,7 @@ class PromiseSpec: QuickSpec {
         }
 
         it("sets a callback") {
-          expect(promise.failureHandler).toNot(beNil())
+          expect(promise.failureHandlers.count).to(equal(1))
         }
       }
 
@@ -275,7 +276,7 @@ class PromiseSpec: QuickSpec {
         }
 
         it("sets a callback") {
-          expect(promise.completionHandler).toNot(beNil())
+          expect(promise.completionHandlers.count).to(equal(1))
         }
       }
 

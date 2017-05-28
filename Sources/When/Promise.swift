@@ -9,9 +9,9 @@ open class Promise<T> {
   fileprivate(set) var queue: DispatchQueue
   fileprivate(set) public var state: State<T>
   fileprivate(set) var observer: Observer<T>?
-  fileprivate(set) var doneHandler: DoneHandler?
-  fileprivate(set) var failureHandler: FailureHandler?
-  fileprivate(set) var completionHandler: CompletionHandler?
+  fileprivate(set) var doneHandlers = [DoneHandler]()
+  fileprivate(set) var failureHandlers = [FailureHandler]()
+  fileprivate(set) var completionHandlers = [CompletionHandler]()
 
   // MARK: - Initialization
 
@@ -94,7 +94,7 @@ open class Promise<T> {
    Adds a handler to be called when the promise object is resolved with a value.
    */
   @discardableResult public func done(_ handler: @escaping DoneHandler) -> Self {
-    doneHandler = handler
+    doneHandlers.append(handler)
     return self
   }
 
@@ -103,12 +103,13 @@ open class Promise<T> {
   */
   @discardableResult public func fail(policy: FailurePolicy = .notCancelled,
                                     _ handler: @escaping FailureHandler) -> Self {
-    failureHandler = { error in
+    let failureHandler: FailureHandler = { error in
       if case PromiseError.cancelled = error, policy == .notCancelled {
         return
       }
       handler(error)
     }
+    failureHandlers.append(failureHandler)
     return self
   }
 
@@ -117,7 +118,7 @@ open class Promise<T> {
    This callback will be called after done or fail handlers
   **/
   @discardableResult public func always(_ handler: @escaping CompletionHandler) -> Self {
-    completionHandler = handler
+    completionHandlers.append(handler)
     return self
   }
 
@@ -137,12 +138,17 @@ open class Promise<T> {
   private func notify(_ result: Result<T>) {
     switch result {
     case let .success(value):
-      doneHandler?(value)
+      for doneHandler in doneHandlers {
+        doneHandler(value)
+      }
     case let .failure(error):
-      failureHandler?(error)
+      for failureHandler in failureHandlers {
+        failureHandler(error)
+      }
     }
-
-    completionHandler?(result)
+    for completionHandler in completionHandlers {
+      completionHandler(result)
+    }
 
     if let observer = observer {
       dispatch(observer.queue) {
@@ -150,9 +156,9 @@ open class Promise<T> {
       }
     }
 
-    doneHandler = nil
-    failureHandler = nil
-    completionHandler = nil
+    doneHandlers.removeAll()
+    failureHandlers.removeAll()
+    completionHandlers.removeAll()
     observer = nil
   }
 
