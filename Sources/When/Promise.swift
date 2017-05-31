@@ -84,7 +84,7 @@ open class Promise<T> {
   }
 
   /// Rejects a promise with the cancelled error.
-  public func cancel() {
+  open func cancel() {
     reject(PromiseError.cancelled)
   }
 
