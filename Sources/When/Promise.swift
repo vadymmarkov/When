@@ -6,20 +6,38 @@ open class Promise<T> {
   public typealias CompletionHandler = (Result<T>) -> Void
 
   public let key = UUID().uuidString
-  fileprivate(set) var queue: DispatchQueue
+  let queue: DispatchQueue
+  fileprivate let observerQueue = DispatchQueue(label: "When.ObserverQueue", attributes: [])
   fileprivate(set) public var state: State<T>
-  fileprivate(set) var observer: Observer<T>?
+
+  private var _observer: Observer<T>?
+  fileprivate(set) var observer: Observer<T>? {
+    get {
+      return observerQueue.sync {
+        return _observer
+      }
+    }
+    set {
+      observerQueue.sync {
+        _observer = newValue
+      }
+    }
+  }
   fileprivate(set) var doneHandlers = [DoneHandler]()
   fileprivate(set) var failureHandlers = [FailureHandler]()
   fileprivate(set) var completionHandlers = [CompletionHandler]()
 
   // MARK: - Initialization
 
-  /// Create a promise that resolves using a synchronous closure.
-  public init(queue: DispatchQueue = .main, _ body: @escaping (Void) throws -> T) {
-    state = .pending
+  /// Create a promise with a given state.
+  public init(queue: DispatchQueue = .main, state: State<T> = .pending) {
     self.queue = queue
+    self.state = state
+  }
 
+  /// Create a promise that resolves using a synchronous closure.
+  public convenience init(queue: DispatchQueue = .main, _ body: @escaping (Void) throws -> T) {
+    self.init(queue: queue, state: .pending)
     dispatch(queue) {
       do {
         let value = try body()
@@ -31,37 +49,27 @@ open class Promise<T> {
   }
 
   /// Create a promise that resolves using an asynchronous closure that can either resolve or reject.
-  public init(queue: DispatchQueue = .main,
-              _ body: @escaping (_ resolve: (T) -> Void, _ reject: (Error) -> Void) -> Void) {
-    state = .pending
-    self.queue = queue
-    
+  public convenience init(queue: DispatchQueue = .main,
+                          _ body: @escaping (_ resolve: (T) -> Void, _ reject: (Error) -> Void) -> Void) {
+    self.init(queue: queue, state: .pending)
     dispatch(queue) {
       body(self.resolve, self.reject)
     }
   }
 
   /// Create a promise that resolves using an asynchronous closure that can only resolve.
-  public init(queue: DispatchQueue = .main, _ body: @escaping (@escaping (T) -> Void) -> Void) {
-    state = .pending
-    self.queue = queue
-
+  public convenience init(queue: DispatchQueue = .main, _ body: @escaping (@escaping (T) -> Void) -> Void) {
+    self.init(queue: queue, state: .pending)
     dispatch(queue) {
       body(self.resolve)
     }
-  }
-
-  /// Create a promise with a given state.
-  public init(queue: DispatchQueue = .main, state: State<T> = .pending) {
-    self.queue = queue
-    self.state = state
   }
 
   // MARK: - States
 
   /**
    Rejects a promise with a given error.
-  */
+   */
   public func reject(_ error: Error) {
     guard self.state.isPending else {
       return
@@ -100,9 +108,9 @@ open class Promise<T> {
 
   /**
    Adds a handler to be called when the promise object is rejected with an error.
-  */
+   */
   @discardableResult public func fail(policy: FailurePolicy = .notCancelled,
-                                    _ handler: @escaping FailureHandler) -> Self {
+                                      _ handler: @escaping FailureHandler) -> Self {
     let failureHandler: FailureHandler = { error in
       if case PromiseError.cancelled = error, policy == .notCancelled {
         return
@@ -116,7 +124,7 @@ open class Promise<T> {
   /**
    Adds a handler to be called when the promise object is either resolved or rejected.
    This callback will be called after done or fail handlers
-  **/
+   **/
   @discardableResult public func always(_ handler: @escaping CompletionHandler) -> Self {
     completionHandlers.append(handler)
     return self
@@ -153,13 +161,13 @@ open class Promise<T> {
     if let observer = observer {
       dispatch(observer.queue) {
         observer.notify(result)
+        self.observer = nil
       }
     }
 
     doneHandlers.removeAll()
     failureHandlers.removeAll()
     completionHandlers.removeAll()
-    observer = nil
   }
 
   private func dispatch(_ queue: DispatchQueue, closure: @escaping () -> Void) {
@@ -276,7 +284,7 @@ extension Promise {
         }
       }
     }
-
+    
     update(state: state)
   }
 }
