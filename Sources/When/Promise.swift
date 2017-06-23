@@ -29,11 +29,15 @@ open class Promise<T> {
 
   // MARK: - Initialization
 
-  /// Create a promise that resolves using a synchronous closure.
-  public init(queue: DispatchQueue = .main, _ body: @escaping (Void) throws -> T) {
-    state = .pending
+  /// Create a promise with a given state.
+  public init(queue: DispatchQueue = .main, state: State<T> = .pending) {
     self.queue = queue
+    self.state = state
+  }
 
+  /// Create a promise that resolves using a synchronous closure.
+  public convenience init(queue: DispatchQueue = .main, _ body: @escaping (Void) throws -> T) {
+    self.init(queue: queue, state: .pending)
     dispatch(queue) {
       do {
         let value = try body()
@@ -45,30 +49,20 @@ open class Promise<T> {
   }
 
   /// Create a promise that resolves using an asynchronous closure that can either resolve or reject.
-  public init(queue: DispatchQueue = .main,
-              _ body: @escaping (_ resolve: (T) -> Void, _ reject: (Error) -> Void) -> Void) {
-    state = .pending
-    self.queue = queue
-
+  public convenience init(queue: DispatchQueue = .main,
+                          _ body: @escaping (_ resolve: (T) -> Void, _ reject: (Error) -> Void) -> Void) {
+    self.init(queue: queue, state: .pending)
     dispatch(queue) {
       body(self.resolve, self.reject)
     }
   }
 
   /// Create a promise that resolves using an asynchronous closure that can only resolve.
-  public init(queue: DispatchQueue = .main, _ body: @escaping (@escaping (T) -> Void) -> Void) {
-    state = .pending
-    self.queue = queue
-
+  public convenience init(queue: DispatchQueue = .main, _ body: @escaping (@escaping (T) -> Void) -> Void) {
+    self.init(queue: queue, state: .pending)
     dispatch(queue) {
       body(self.resolve)
     }
-  }
-
-  /// Create a promise with a given state.
-  public init(queue: DispatchQueue = .main, state: State<T> = .pending) {
-    self.queue = queue
-    self.state = state
   }
 
   // MARK: - States
