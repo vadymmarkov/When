@@ -36,7 +36,7 @@ open class Promise<T> {
   }
 
   /// Create a promise that resolves using a synchronous closure.
-  public convenience init(queue: DispatchQueue = .main, _ body: @escaping (Void) throws -> T) {
+  public convenience init(queue: DispatchQueue = .main, _ body: @escaping () throws -> T) {
     self.init(queue: queue, state: .pending)
     dispatch(queue) {
       do {
