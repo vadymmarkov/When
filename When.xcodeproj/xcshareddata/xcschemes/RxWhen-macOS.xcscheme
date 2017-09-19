@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D5C6293F1C3A7FAA007F7B7C"
-               BuildableName = "When.framework"
-               BlueprintName = "When-Mac"
+               BlueprintIdentifier = "D58B2C4F1E4130710099F6D7"
+               BuildableName = "RxWhen.framework"
+               BlueprintName = "RxWhen-macOS"
                ReferencedContainer = "container:When.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,26 +29,7 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D5C629481C3A7FAA007F7B7C"
-               BuildableName = "When-Mac-Tests.xctest"
-               BlueprintName = "When-Mac-Tests"
-               ReferencedContainer = "container:When.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D5C6293F1C3A7FAA007F7B7C"
-            BuildableName = "When.framework"
-            BlueprintName = "When-Mac"
-            ReferencedContainer = "container:When.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -66,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D5C6293F1C3A7FAA007F7B7C"
-            BuildableName = "When.framework"
-            BlueprintName = "When-Mac"
+            BlueprintIdentifier = "D58B2C4F1E4130710099F6D7"
+            BuildableName = "RxWhen.framework"
+            BlueprintName = "RxWhen-macOS"
             ReferencedContainer = "container:When.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -84,9 +65,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D5C6293F1C3A7FAA007F7B7C"
-            BuildableName = "When.framework"
-            BlueprintName = "When-Mac"
+            BlueprintIdentifier = "D58B2C4F1E4130710099F6D7"
+            BuildableName = "RxWhen.framework"
+            BlueprintName = "RxWhen-macOS"
             ReferencedContainer = "container:When.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

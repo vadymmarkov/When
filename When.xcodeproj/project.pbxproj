@@ -18,8 +18,6 @@
 		D582E5831ED9AD9400D0E21B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582E5821ED9AD9400D0E21B /* Error.swift */; };
 		D582E5841ED9AD9400D0E21B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582E5821ED9AD9400D0E21B /* Error.swift */; };
 		D582E5851ED9AD9400D0E21B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582E5821ED9AD9400D0E21B /* Error.swift */; };
-		D582E5861EDB17A400D0E21B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582E5821ED9AD9400D0E21B /* Error.swift */; };
-		D582E5871EDB17A500D0E21B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D582E5821ED9AD9400D0E21B /* Error.swift */; };
 		D58B2C281E412E7D0099F6D7 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C231E412E7D0099F6D7 /* Functions.swift */; };
 		D58B2C291E412E7D0099F6D7 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C241E412E7D0099F6D7 /* Observer.swift */; };
 		D58B2C2A1E412E7D0099F6D7 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C251E412E7D0099F6D7 /* Promise.swift */; };
@@ -35,18 +33,8 @@
 		D58B2C341E412E820099F6D7 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C251E412E7D0099F6D7 /* Promise.swift */; };
 		D58B2C351E412E820099F6D7 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C261E412E7D0099F6D7 /* Result.swift */; };
 		D58B2C361E412E820099F6D7 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C271E412E7D0099F6D7 /* State.swift */; };
-		D58B2C391E412EEE0099F6D7 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C231E412E7D0099F6D7 /* Functions.swift */; };
-		D58B2C3A1E412EEE0099F6D7 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C241E412E7D0099F6D7 /* Observer.swift */; };
-		D58B2C3B1E412EEE0099F6D7 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C261E412E7D0099F6D7 /* Result.swift */; };
-		D58B2C3C1E412EEE0099F6D7 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C271E412E7D0099F6D7 /* State.swift */; };
-		D58B2C3D1E412EEE0099F6D7 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C251E412E7D0099F6D7 /* Promise.swift */; };
 		D58B2C4A1E412F7C0099F6D7 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D58B2C491E412F7C0099F6D7 /* RxSwift.framework */; };
 		D58B2C4E1E412FDC0099F6D7 /* Promise+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C4D1E412FDC0099F6D7 /* Promise+Rx.swift */; };
-		D58B2C511E4130710099F6D7 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C231E412E7D0099F6D7 /* Functions.swift */; };
-		D58B2C521E4130710099F6D7 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C241E412E7D0099F6D7 /* Observer.swift */; };
-		D58B2C531E4130710099F6D7 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C261E412E7D0099F6D7 /* Result.swift */; };
-		D58B2C541E4130710099F6D7 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C271E412E7D0099F6D7 /* State.swift */; };
-		D58B2C551E4130710099F6D7 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C251E412E7D0099F6D7 /* Promise.swift */; };
 		D58B2C601E4130A30099F6D7 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D58B2C5F1E4130A30099F6D7 /* RxSwift.framework */; };
 		D58B2C631E4130FD0099F6D7 /* Promise+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C4D1E412FDC0099F6D7 /* Promise+Rx.swift */; };
 		D58B2C751E4131800099F6D7 /* Promise+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C4D1E412FDC0099F6D7 /* Promise+Rx.swift */; };
@@ -114,7 +102,7 @@
 		D5C190091C69D9D700ECCB66 /* ResultSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultSpec.swift; sourceTree = "<group>"; };
 		D5C1900B1C69D9E300ECCB66 /* PromiseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseSpec.swift; sourceTree = "<group>"; };
 		D5C629401C3A7FAA007F7B7C /* When.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = When.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D5C629491C3A7FAA007F7B7C /* When-Mac-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "When-Mac-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5C629491C3A7FAA007F7B7C /* When-macOS-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "When-macOS-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5C6298B1C3A8BBD007F7B7C /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		D5C6298C1C3A8BBD007F7B7C /* Info-Mac.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Mac.plist"; sourceTree = "<group>"; };
 		D5C629901C3A8BDA007F7B7C /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
@@ -257,7 +245,7 @@
 				D5B2E89F1C3A780C00C0327D /* When.framework */,
 				D5B2E8A91C3A780C00C0327D /* When-iOS-Tests.xctest */,
 				D5C629401C3A7FAA007F7B7C /* When.framework */,
-				D5C629491C3A7FAA007F7B7C /* When-Mac-Tests.xctest */,
+				D5C629491C3A7FAA007F7B7C /* When-macOS-Tests.xctest */,
 				D5E4D5E21D98399C003770B2 /* When.framework */,
 				D5E4D5EA1D98399C003770B2 /* When-tvOS-Tests.xctest */,
 				D58B2C441E412EEE0099F6D7 /* RxWhen.framework */,
@@ -377,9 +365,9 @@
 			productReference = D58B2C441E412EEE0099F6D7 /* RxWhen.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D58B2C4F1E4130710099F6D7 /* RxWhen-Mac */ = {
+		D58B2C4F1E4130710099F6D7 /* RxWhen-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D58B2C591E4130710099F6D7 /* Build configuration list for PBXNativeTarget "RxWhen-Mac" */;
+			buildConfigurationList = D58B2C591E4130710099F6D7 /* Build configuration list for PBXNativeTarget "RxWhen-macOS" */;
 			buildPhases = (
 				D58B2C501E4130710099F6D7 /* Sources */,
 				D58B2C561E4130710099F6D7 /* Frameworks */,
@@ -390,7 +378,7 @@
 			);
 			dependencies = (
 			);
-			name = "RxWhen-Mac";
+			name = "RxWhen-macOS";
 			productName = "When-Mac";
 			productReference = D58B2C5C1E4130710099F6D7 /* RxWhen.framework */;
 			productType = "com.apple.product-type.framework";
@@ -450,9 +438,9 @@
 			productReference = D5B2E8A91C3A780C00C0327D /* When-iOS-Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		D5C6293F1C3A7FAA007F7B7C /* When-Mac */ = {
+		D5C6293F1C3A7FAA007F7B7C /* When-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5C629511C3A7FAA007F7B7C /* Build configuration list for PBXNativeTarget "When-Mac" */;
+			buildConfigurationList = D5C629511C3A7FAA007F7B7C /* Build configuration list for PBXNativeTarget "When-macOS" */;
 			buildPhases = (
 				D5C6293B1C3A7FAA007F7B7C /* Sources */,
 				D5C6293C1C3A7FAA007F7B7C /* Frameworks */,
@@ -463,14 +451,14 @@
 			);
 			dependencies = (
 			);
-			name = "When-Mac";
+			name = "When-macOS";
 			productName = "When-Mac";
 			productReference = D5C629401C3A7FAA007F7B7C /* When.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D5C629481C3A7FAA007F7B7C /* When-Mac-Tests */ = {
+		D5C629481C3A7FAA007F7B7C /* When-macOS-Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5C629541C3A7FAA007F7B7C /* Build configuration list for PBXNativeTarget "When-Mac-Tests" */;
+			buildConfigurationList = D5C629541C3A7FAA007F7B7C /* Build configuration list for PBXNativeTarget "When-macOS-Tests" */;
 			buildPhases = (
 				D5C629451C3A7FAA007F7B7C /* Sources */,
 				D5C629461C3A7FAA007F7B7C /* Frameworks */,
@@ -482,9 +470,9 @@
 			dependencies = (
 				D5C6294C1C3A7FAA007F7B7C /* PBXTargetDependency */,
 			);
-			name = "When-Mac-Tests";
+			name = "When-macOS-Tests";
 			productName = "When-MacTests";
-			productReference = D5C629491C3A7FAA007F7B7C /* When-Mac-Tests.xctest */;
+			productReference = D5C629491C3A7FAA007F7B7C /* When-macOS-Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D5E4D5E11D98399C003770B2 /* When-tvOS */ = {
@@ -584,13 +572,13 @@
 			projectRoot = "";
 			targets = (
 				D5B2E89E1C3A780C00C0327D /* When-iOS */,
-				D5C6293F1C3A7FAA007F7B7C /* When-Mac */,
+				D5C6293F1C3A7FAA007F7B7C /* When-macOS */,
 				D5E4D5E11D98399C003770B2 /* When-tvOS */,
 				D5B2E8A81C3A780C00C0327D /* When-iOS-Tests */,
-				D5C629481C3A7FAA007F7B7C /* When-Mac-Tests */,
+				D5C629481C3A7FAA007F7B7C /* When-macOS-Tests */,
 				D5E4D5E91D98399C003770B2 /* When-tvOS-Tests */,
 				D58B2C371E412EEE0099F6D7 /* RxWhen-iOS */,
-				D58B2C4F1E4130710099F6D7 /* RxWhen-Mac */,
+				D58B2C4F1E4130710099F6D7 /* RxWhen-macOS */,
 				D58B2C641E4131100099F6D7 /* RxWhen-tvOS */,
 			);
 		};
@@ -718,13 +706,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D58B2C391E412EEE0099F6D7 /* Functions.swift in Sources */,
-				D58B2C3A1E412EEE0099F6D7 /* Observer.swift in Sources */,
-				D58B2C3B1E412EEE0099F6D7 /* Result.swift in Sources */,
-				D58B2C3C1E412EEE0099F6D7 /* State.swift in Sources */,
 				D58B2C4E1E412FDC0099F6D7 /* Promise+Rx.swift in Sources */,
-				D582E5861EDB17A400D0E21B /* Error.swift in Sources */,
-				D58B2C3D1E412EEE0099F6D7 /* Promise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -732,12 +714,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D58B2C511E4130710099F6D7 /* Functions.swift in Sources */,
-				D58B2C521E4130710099F6D7 /* Observer.swift in Sources */,
-				D58B2C531E4130710099F6D7 /* Result.swift in Sources */,
-				D58B2C541E4130710099F6D7 /* State.swift in Sources */,
-				D58B2C551E4130710099F6D7 /* Promise.swift in Sources */,
-				D582E5871EDB17A500D0E21B /* Error.swift in Sources */,
 				D58B2C631E4130FD0099F6D7 /* Promise+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -835,7 +811,7 @@
 		};
 		D5C6294C1C3A7FAA007F7B7C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D5C6293F1C3A7FAA007F7B7C /* When-Mac */;
+			target = D5C6293F1C3A7FAA007F7B7C /* When-macOS */;
 			targetProxy = D5C6294B1C3A7FAA007F7B7C /* PBXContainerItemProxy */;
 		};
 		D5E4D5ED1D98399C003770B2 /* PBXTargetDependency */ = {
@@ -1224,7 +1200,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.When-Mac";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.When-macOS";
 				PRODUCT_NAME = When;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1249,7 +1225,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.When-Mac";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.When-macOS";
 				PRODUCT_NAME = When;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1418,7 +1394,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D58B2C591E4130710099F6D7 /* Build configuration list for PBXNativeTarget "RxWhen-Mac" */ = {
+		D58B2C591E4130710099F6D7 /* Build configuration list for PBXNativeTarget "RxWhen-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D58B2C5A1E4130710099F6D7 /* Debug */,
@@ -1463,7 +1439,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5C629511C3A7FAA007F7B7C /* Build configuration list for PBXNativeTarget "When-Mac" */ = {
+		D5C629511C3A7FAA007F7B7C /* Build configuration list for PBXNativeTarget "When-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5C629521C3A7FAA007F7B7C /* Debug */,
@@ -1472,7 +1448,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5C629541C3A7FAA007F7B7C /* Build configuration list for PBXNativeTarget "When-Mac-Tests" */ = {
+		D5C629541C3A7FAA007F7B7C /* Build configuration list for PBXNativeTarget "When-macOS-Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5C629551C3A7FAA007F7B7C /* Debug */,
