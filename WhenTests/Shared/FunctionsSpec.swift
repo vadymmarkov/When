@@ -3,7 +3,6 @@ import Nimble
 @testable import When
 
 class FunctionsSpec: QuickSpec {
-
   override func spec() {
     describe("Functions") {
       describe("#then") {

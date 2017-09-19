@@ -3,7 +3,6 @@ import Nimble
 @testable import When
 
 class ResultSpec: QuickSpec {
-
   override func spec() {
     describe("Result") {
       var result: Result<String>!

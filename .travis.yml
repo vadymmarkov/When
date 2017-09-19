@@ -1,4 +1,4 @@
-osx_image: xcode8.3
+osx_image: xcode9
 language: swift
 
 before_install:
@@ -11,3 +11,8 @@ script:
 - xcodebuild test -project When.xcodeproj -scheme "When-Mac" -sdk macosx | xcpretty
 - xcodebuild clean build -project When.xcodeproj -scheme "When-iOS" -sdk iphonesimulator | xcpretty
 - xcodebuild test -project When.xcodeproj -scheme "When-iOS" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0' | xcpretty
+- xcodebuild clean build -project When.xcodeproj -scheme "When-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=10.0' | xcpretty
+- xcodebuild test -project When.xcodeproj -scheme "When-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=10.0' | xcpretty && exit ${PIPESTATUS[0]}
+
+notifications:
+  email: false

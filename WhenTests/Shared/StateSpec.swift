@@ -3,7 +3,6 @@ import Nimble
 @testable import When
 
 class StateSpec: QuickSpec {
-
   override func spec() {
     describe("State") {
       var state: State<String>!

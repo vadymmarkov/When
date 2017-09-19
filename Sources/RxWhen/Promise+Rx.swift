@@ -6,7 +6,6 @@ import RxSwift
 // MARK: - Observable
 
 extension Promise: ObservableConvertibleType {
-
   public func asObservable() -> Observable<T> {
     return Observable.create({ observer in
       self
