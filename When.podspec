@@ -26,6 +26,6 @@ Pod::Spec.new do |s|
   s.subspec "RxSwift" do |ss|
     ss.source_files = "Sources/RxWhen/**/*"
     ss.dependency "When/Core"
-    ss.dependency "RxSwift", "~> 3.0"
+    ss.dependency "RxSwift", "~> 4.0"
   end
 end
