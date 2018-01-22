@@ -54,6 +54,29 @@ class FunctionsSpec: QuickSpec {
             self.waitForExpectations(timeout: 2.0, handler:nil)
           }
         }
+
+        context("with many concurrent tasks") {
+          it("resolves the promise") {
+            let promises: [Promise<Int>] = (0..<10000).map { _ in
+              let promise = Promise<Int>(queue: DispatchQueue.global(), { resolve in
+                // +1 needed to avoid https://github.com/vadymmarkov/When/issues/27
+                DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 1) {
+                  resolve(1)
+                }
+              })
+              return promise
+            }
+
+            let doneExpectation = self.expectation(description: "Done expectation")
+
+            when(promises)
+              .done({ result in
+                doneExpectation.fulfill()
+              })
+
+            self.waitForExpectations(timeout: 2.0, handler:nil)
+          }
+        }
       }
     }
   }
