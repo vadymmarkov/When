@@ -2,7 +2,7 @@ import Foundation
 
 let backgroundQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
 let instantQueue = DispatchQueue(label: "When.InstantQueue", attributes: [])
-let barrierQueue = DispatchQueue(label: "When.BarrierQueue", attributes: DispatchQueue.Attributes.concurrent)
+let barrierQueue = DispatchQueue(label: "When.BarrierQueue", attributes: [])
 
 public func when<T, U>(_ p1: Promise<T>, _ p2: Promise<U>) -> Promise<(T, U)> {
   return when([p1.asVoid(on: instantQueue), p2.asVoid(on: instantQueue)]).then(on: instantQueue) { _ in

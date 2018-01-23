@@ -54,6 +54,27 @@ class FunctionsSpec: QuickSpec {
             self.waitForExpectations(timeout: 2.0, handler:nil)
           }
         }
+
+        context("with many concurrent tasks") {
+          it("resolves the promise") {
+            let promises: [Promise<Int>] = (0..<10000).map { _ in
+              return Promise<Int>(queue: DispatchQueue.global())
+            }
+
+            let doneExpectation = self.expectation(description: "Done expectation")
+
+            when(promises)
+              .done({ result in
+                doneExpectation.fulfill()
+              })
+
+            promises.forEach {
+                $0.resolve(1)
+            }
+
+            self.waitForExpectations(timeout: 5.0, handler:nil)
+          }
+        }
       }
     }
   }
