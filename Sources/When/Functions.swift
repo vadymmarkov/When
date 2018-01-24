@@ -1,4 +1,5 @@
 import Foundation
+import Dispatch
 
 let backgroundQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
 let instantQueue = DispatchQueue(label: "When.InstantQueue", attributes: [])

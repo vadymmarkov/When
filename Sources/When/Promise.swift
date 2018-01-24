@@ -1,4 +1,5 @@
 import Foundation
+import Dispatch
 
 open class Promise<T> {
   public typealias DoneHandler = (T) -> Void
