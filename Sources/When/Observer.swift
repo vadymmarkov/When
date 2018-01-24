@@ -1,4 +1,5 @@
 import Foundation
+import Dispatch
 
 struct Observer<T> {
   let queue: DispatchQueue
