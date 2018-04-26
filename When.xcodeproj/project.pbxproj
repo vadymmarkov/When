@@ -839,7 +839,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.When-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.RxWhen-iOS";
 				PRODUCT_NAME = RxWhen;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -865,7 +865,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.When-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.RxWhen-iOS";
 				PRODUCT_NAME = RxWhen;
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -892,7 +892,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.When-Mac";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.RxWhen-Mac";
 				PRODUCT_NAME = RxWhen;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -921,7 +921,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.When-Mac";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.RxWhen-Mac";
 				PRODUCT_NAME = RxWhen;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -948,7 +948,7 @@
 				INFOPLIST_FILE = "When/Rx-Info-tvOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vadymmarkov.When;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.RxWhen-tvOS";
 				PRODUCT_NAME = RxWhen;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -979,7 +979,7 @@
 				INFOPLIST_FILE = "When/Rx-Info-tvOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vadymmarkov.When;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.RxWhen-tvOS";
 				PRODUCT_NAME = RxWhen;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -1294,7 +1294,7 @@
 				INFOPLIST_FILE = "When/Info-tvOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vadymmarkov.When;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.When-tvOS";
 				PRODUCT_NAME = When;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -1325,7 +1325,7 @@
 				INFOPLIST_FILE = "When/Info-tvOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vadymmarkov.When;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.When-tvOS";
 				PRODUCT_NAME = When;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
