@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "When"
   s.summary          = "A lightweight implementation of Promises in Swift"
-  s.version          = "3.0.1"
+  s.version          = "3.0.2"
   s.homepage         = "https://github.com/vadymmarkov/When"
   s.license          = 'MIT'
   s.author           = { "Vadym Markov" => "markov.vadym@hyper.no" }
