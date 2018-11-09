@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.2'
 
   s.requires_arc = true
-  ss.source_files  = "Sources/**/*"
-  ss.framework  = "Foundation"
+  s.source_files  = "Sources/**/*"
+  s.framework  = "Foundation"
 end
