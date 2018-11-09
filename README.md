@@ -30,6 +30,7 @@ asynchronous code up to the next level.
   * [Then](#then)
   * [Recover](#recover)
   * [When](#when)
+* [Reactive extensions](#reactive-extensions)
 * [Installation](#installation)
 * [Author](#author)
 * [Credits](#credits)
@@ -274,6 +275,33 @@ when(promise1, promise2, promise3)
 promise1.resolve(1)
 promise2.resolve("String")
 promise3.resolve(3)
+```
+
+## Reactive extensions
+
+Use the following extension in order to integrate **When** with [RxSwift](https://github.com/ReactiveX/RxSwift):
+
+```swift
+import RxSwift
+
+extension Promise: ObservableConvertibleType {
+  public func asObservable() -> Observable<T> {
+    return Observable.create({ observer in
+      self
+        .done({ value in
+          observer.onNext(value)
+        })
+        .fail({ error in
+          observer.onError(error)
+        })
+        .always({ _ in
+          observer.onCompleted()
+        })
+
+      return Disposables.create()
+    })
+  }
+}
 ```
 
 ## Installation
