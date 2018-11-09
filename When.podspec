@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "When"
   s.summary          = "A lightweight implementation of Promises in Swift"
-  s.version          = "3.0.3"
+  s.version          = "3.1.0"
   s.homepage         = "https://github.com/vadymmarkov/When"
   s.license          = 'MIT'
   s.author           = { "Vadym Markov" => "markov.vadym@hyper.no" }
@@ -16,16 +16,6 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.2'
 
   s.requires_arc = true
-  s.default_subspec = "Core"
-
-  s.subspec "Core" do |ss|
-    ss.source_files  = "Sources/When/**/*"
-    ss.framework  = "Foundation"
-  end
-
-  s.subspec "RxSwift" do |ss|
-    ss.source_files = "Sources/RxWhen/**/*"
-    ss.dependency "When/Core"
-    ss.dependency "RxSwift", "4.0.0-beta.0"
-  end
+  ss.source_files  = "Sources/**/*"
+  ss.framework  = "Foundation"
 end
