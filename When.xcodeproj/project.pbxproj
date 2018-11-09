@@ -33,15 +33,6 @@
 		D58B2C341E412E820099F6D7 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C251E412E7D0099F6D7 /* Promise.swift */; };
 		D58B2C351E412E820099F6D7 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C261E412E7D0099F6D7 /* Result.swift */; };
 		D58B2C361E412E820099F6D7 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C271E412E7D0099F6D7 /* State.swift */; };
-		D58B2C4A1E412F7C0099F6D7 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D58B2C491E412F7C0099F6D7 /* RxSwift.framework */; };
-		D58B2C4E1E412FDC0099F6D7 /* Promise+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C4D1E412FDC0099F6D7 /* Promise+Rx.swift */; };
-		D58B2C601E4130A30099F6D7 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D58B2C5F1E4130A30099F6D7 /* RxSwift.framework */; };
-		D58B2C631E4130FD0099F6D7 /* Promise+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C4D1E412FDC0099F6D7 /* Promise+Rx.swift */; };
-		D58B2C751E4131800099F6D7 /* Promise+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58B2C4D1E412FDC0099F6D7 /* Promise+Rx.swift */; };
-		D58B2C781E4131A00099F6D7 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D58B2C771E4131A00099F6D7 /* RxSwift.framework */; };
-		D58CF69E1F7173C600EB104A /* When.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B2E89F1C3A780C00C0327D /* When.framework */; };
-		D58CF69F1F71741500EB104A /* When.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C629401C3A7FAA007F7B7C /* When.framework */; };
-		D5A7F9E821087B1400C393E9 /* When.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5E4D5E21D98399C003770B2 /* When.framework */; };
 		D5B2E8AA1C3A780C00C0327D /* When.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B2E89F1C3A780C00C0327D /* When.framework */; };
 		D5C6294A1C3A7FAA007F7B7C /* When.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C629401C3A7FAA007F7B7C /* When.framework */; };
 		D5C6299C1C3A8BDA007F7B7C /* StateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C629971C3A8BDA007F7B7C /* StateSpec.swift */; };
@@ -87,14 +78,10 @@
 		D58B2C251E412E7D0099F6D7 /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		D58B2C261E412E7D0099F6D7 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		D58B2C271E412E7D0099F6D7 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
-		D58B2C441E412EEE0099F6D7 /* RxWhen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxWhen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D58B2C461E412F320099F6D7 /* Rx-Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Rx-Info-iOS.plist"; sourceTree = "<group>"; };
 		D58B2C491E412F7C0099F6D7 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
-		D58B2C4D1E412FDC0099F6D7 /* Promise+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Rx.swift"; sourceTree = "<group>"; };
-		D58B2C5C1E4130710099F6D7 /* RxWhen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxWhen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D58B2C5F1E4130A30099F6D7 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
 		D58B2C611E4130C30099F6D7 /* Rx-Info-Mac.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Rx-Info-Mac.plist"; sourceTree = "<group>"; };
-		D58B2C711E4131100099F6D7 /* RxWhen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxWhen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D58B2C731E4131490099F6D7 /* Rx-Info-tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Rx-Info-tvOS.plist"; sourceTree = "<group>"; };
 		D58B2C771E4131A00099F6D7 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/tvOS/RxSwift.framework; sourceTree = "<group>"; };
 		D5B2E89F1C3A780C00C0327D /* When.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = When.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,33 +102,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D58B2C3E1E412EEE0099F6D7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D58CF69E1F7173C600EB104A /* When.framework in Frameworks */,
-				D58B2C4A1E412F7C0099F6D7 /* RxSwift.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D58B2C561E4130710099F6D7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D58CF69F1F71741500EB104A /* When.framework in Frameworks */,
-				D58B2C601E4130A30099F6D7 /* RxSwift.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D58B2C6B1E4131100099F6D7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D5A7F9E821087B1400C393E9 /* When.framework in Frameworks */,
-				D58B2C781E4131A00099F6D7 /* RxSwift.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D5B2E89B1C3A780C00C0327D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -198,19 +158,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		D58B2C221E412E7D0099F6D7 /* When */ = {
-			isa = PBXGroup;
-			children = (
-				D58B2C231E412E7D0099F6D7 /* Functions.swift */,
-				D58B2C241E412E7D0099F6D7 /* Observer.swift */,
-				D58B2C251E412E7D0099F6D7 /* Promise.swift */,
-				D58B2C261E412E7D0099F6D7 /* Result.swift */,
-				D58B2C271E412E7D0099F6D7 /* State.swift */,
-				D582E5821ED9AD9400D0E21B /* Error.swift */,
-			);
-			path = When;
-			sourceTree = "<group>";
-		};
 		D58B2C481E412F7B0099F6D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,14 +166,6 @@
 				D58B2C491E412F7C0099F6D7 /* RxSwift.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D58B2C4C1E412FA90099F6D7 /* RxWhen */ = {
-			isa = PBXGroup;
-			children = (
-				D58B2C4D1E412FDC0099F6D7 /* Promise+Rx.swift */,
-			);
-			path = RxWhen;
 			sourceTree = "<group>";
 		};
 		D5B2E8951C3A780C00C0327D = {
@@ -250,9 +189,6 @@
 				D5C629491C3A7FAA007F7B7C /* When-macOS-Tests.xctest */,
 				D5E4D5E21D98399C003770B2 /* When.framework */,
 				D5E4D5EA1D98399C003770B2 /* When-tvOS-Tests.xctest */,
-				D58B2C441E412EEE0099F6D7 /* RxWhen.framework */,
-				D58B2C5C1E4130710099F6D7 /* RxWhen.framework */,
-				D58B2C711E4131100099F6D7 /* RxWhen.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -273,8 +209,12 @@
 		D5C629691C3A809D007F7B7C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D58B2C4C1E412FA90099F6D7 /* RxWhen */,
-				D58B2C221E412E7D0099F6D7 /* When */,
+				D58B2C231E412E7D0099F6D7 /* Functions.swift */,
+				D58B2C241E412E7D0099F6D7 /* Observer.swift */,
+				D58B2C251E412E7D0099F6D7 /* Promise.swift */,
+				D58B2C261E412E7D0099F6D7 /* Result.swift */,
+				D58B2C271E412E7D0099F6D7 /* State.swift */,
+				D582E5821ED9AD9400D0E21B /* Error.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -304,27 +244,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		D58B2C3F1E412EEE0099F6D7 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D58B2C571E4130710099F6D7 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D58B2C6C1E4131100099F6D7 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D5B2E89C1C3A780C00C0327D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -349,60 +268,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D58B2C371E412EEE0099F6D7 /* RxWhen-iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D58B2C411E412EEE0099F6D7 /* Build configuration list for PBXNativeTarget "RxWhen-iOS" */;
-			buildPhases = (
-				D58B2C381E412EEE0099F6D7 /* Sources */,
-				D58B2C3E1E412EEE0099F6D7 /* Frameworks */,
-				D58B2C3F1E412EEE0099F6D7 /* Headers */,
-				D58B2C401E412EEE0099F6D7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "RxWhen-iOS";
-			productName = When;
-			productReference = D58B2C441E412EEE0099F6D7 /* RxWhen.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		D58B2C4F1E4130710099F6D7 /* RxWhen-macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D58B2C591E4130710099F6D7 /* Build configuration list for PBXNativeTarget "RxWhen-macOS" */;
-			buildPhases = (
-				D58B2C501E4130710099F6D7 /* Sources */,
-				D58B2C561E4130710099F6D7 /* Frameworks */,
-				D58B2C571E4130710099F6D7 /* Headers */,
-				D58B2C581E4130710099F6D7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "RxWhen-macOS";
-			productName = "When-Mac";
-			productReference = D58B2C5C1E4130710099F6D7 /* RxWhen.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		D58B2C641E4131100099F6D7 /* RxWhen-tvOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D58B2C6E1E4131100099F6D7 /* Build configuration list for PBXNativeTarget "RxWhen-tvOS" */;
-			buildPhases = (
-				D58B2C651E4131100099F6D7 /* Sources */,
-				D58B2C6B1E4131100099F6D7 /* Frameworks */,
-				D58B2C6C1E4131100099F6D7 /* Headers */,
-				D58B2C6D1E4131100099F6D7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "RxWhen-tvOS";
-			productName = When;
-			productReference = D58B2C711E4131100099F6D7 /* RxWhen.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		D5B2E89E1C3A780C00C0327D /* When-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D5B2E8B31C3A780C00C0327D /* Build configuration list for PBXNativeTarget "When-iOS" */;
@@ -521,18 +386,9 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0900;
-				ORGANIZATIONNAME = "Hyper Interaktiv AS";
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Vadym Markov";
 				TargetAttributes = {
-					D58B2C371E412EEE0099F6D7 = {
-						LastSwiftMigration = 0900;
-					};
-					D58B2C4F1E4130710099F6D7 = {
-						LastSwiftMigration = 0900;
-					};
-					D58B2C641E4131100099F6D7 = {
-						LastSwiftMigration = 0900;
-					};
 					D5B2E89E1C3A780C00C0327D = {
 						CreatedOnToolsVersion = 7.2;
 						LastSwiftMigration = 0900;
@@ -579,35 +435,11 @@
 				D5B2E8A81C3A780C00C0327D /* When-iOS-Tests */,
 				D5C629481C3A7FAA007F7B7C /* When-macOS-Tests */,
 				D5E4D5E91D98399C003770B2 /* When-tvOS-Tests */,
-				D58B2C371E412EEE0099F6D7 /* RxWhen-iOS */,
-				D58B2C4F1E4130710099F6D7 /* RxWhen-macOS */,
-				D58B2C641E4131100099F6D7 /* RxWhen-tvOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		D58B2C401E412EEE0099F6D7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D58B2C581E4130710099F6D7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D58B2C6D1E4131100099F6D7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D5B2E89D1C3A780C00C0327D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -704,30 +536,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		D58B2C381E412EEE0099F6D7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D58B2C4E1E412FDC0099F6D7 /* Promise+Rx.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D58B2C501E4130710099F6D7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D58B2C631E4130FD0099F6D7 /* Promise+Rx.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D58B2C651E4131100099F6D7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D58B2C751E4131800099F6D7 /* Promise+Rx.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D5B2E89A1C3A780C00C0327D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -824,175 +632,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		D58B2C421E412EEE0099F6D7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = "When/Rx-Info-iOS.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.RxWhen-iOS";
-				PRODUCT_NAME = RxWhen;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-			};
-			name = Debug;
-		};
-		D58B2C431E412EEE0099F6D7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = "When/Rx-Info-iOS.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.RxWhen-iOS";
-				PRODUCT_NAME = RxWhen;
-				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
-		D58B2C5A1E4130710099F6D7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-				);
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "When/Rx-Info-Mac.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.RxWhen-Mac";
-				PRODUCT_NAME = RxWhen;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-			};
-			name = Debug;
-		};
-		D58B2C5B1E4130710099F6D7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-				);
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "When/Rx-Info-Mac.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.RxWhen-Mac";
-				PRODUCT_NAME = RxWhen;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
-		D58B2C6F1E4131100099F6D7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
-				);
-				INFOPLIST_FILE = "When/Rx-Info-tvOS.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.RxWhen-tvOS";
-				PRODUCT_NAME = RxWhen;
-				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-				USE_HEADERMAP = YES;
-			};
-			name = Debug;
-		};
-		D58B2C701E4131100099F6D7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
-				);
-				INFOPLIST_FILE = "When/Rx-Info-tvOS.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vadymmarkov.RxWhen-tvOS";
-				PRODUCT_NAME = RxWhen;
-				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-				USE_HEADERMAP = YES;
-			};
-			name = Release;
-		};
 		D5B2E8B11C3A780C00C0327D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1005,12 +644,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1061,12 +702,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1387,33 +1030,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D58B2C411E412EEE0099F6D7 /* Build configuration list for PBXNativeTarget "RxWhen-iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D58B2C421E412EEE0099F6D7 /* Debug */,
-				D58B2C431E412EEE0099F6D7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D58B2C591E4130710099F6D7 /* Build configuration list for PBXNativeTarget "RxWhen-macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D58B2C5A1E4130710099F6D7 /* Debug */,
-				D58B2C5B1E4130710099F6D7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D58B2C6E1E4131100099F6D7 /* Build configuration list for PBXNativeTarget "RxWhen-tvOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D58B2C6F1E4131100099F6D7 /* Debug */,
-				D58B2C701E4131100099F6D7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		D5B2E8991C3A780C00C0327D /* Build configuration list for PBXProject "When" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
