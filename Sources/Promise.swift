@@ -51,7 +51,7 @@ open class Promise<T> {
 
   /// Create a promise that resolves using an asynchronous closure that can either resolve or reject.
   public convenience init(queue: DispatchQueue = .main,
-                          _ body: @escaping (_ resolve: (T) -> Void, _ reject: (Error) -> Void) -> Void) {
+                          _ body: @escaping (_ resolve: @escaping (T) -> Void, _ reject: @escaping (Error) -> Void) -> Void) {
     self.init(queue: queue, state: .pending)
     dispatch(queue) {
       body(self.resolve, self.reject)
