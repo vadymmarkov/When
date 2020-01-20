@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Dispatch
 @testable import When
 
 class FunctionsSpec: QuickSpec {
