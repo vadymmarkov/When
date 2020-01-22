@@ -11,8 +11,8 @@ script:
 - xcodebuild test -project When.xcodeproj -scheme "When-macOS" -sdk macosx | xcpretty
 - xcodebuild clean build -project When.xcodeproj -scheme "When-iOS" -sdk iphonesimulator | xcpretty
 - xcodebuild test -project When.xcodeproj -scheme "When-iOS" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.2' | xcpretty
-- xcodebuild clean build -project When.xcodeproj -scheme "When-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=12.2' | xcpretty
-- xcodebuild test -project When.xcodeproj -scheme "When-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=12.2' | xcpretty && exit ${PIPESTATUS[0]}
+- xcodebuild clean build -project When.xcodeproj -scheme "When-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV,OS=12.2' | xcpretty
+- xcodebuild test -project When.xcodeproj -scheme "When-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV,OS=12.2' | xcpretty && exit ${PIPESTATUS[0]}
 
 notifications:
   email: false
