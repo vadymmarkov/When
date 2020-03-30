@@ -15,7 +15,7 @@ Promise({
   return "String"
 }).always({ result in
   print("Always")
-  print(result.value ?? "")
+  print(try? result.get() ?? "")
 }).done({ value in
   print(value)
 }).fail({ error in

@@ -44,7 +44,7 @@ class PromiseSpec: QuickSpec {
 
           it("sets values") {
             expect(promise.state).to(equal(state))
-            expect(promise.state.result?.value).to(equal(state.result?.value))
+            expect(try! promise.state.result?.get()).to(equal(try! state.result?.get()))
             expect(promise.queue === queue).to(beTrue())
           }
         }
@@ -64,8 +64,11 @@ class PromiseSpec: QuickSpec {
             promise
               .fail({ object in
                 expect(promise.state.isRejected).to(beTrue())
-                expect(promise.state.result?.value).to(beNil())
-                expect(promise.state.result?.error is SpecError).to(beTrue())
+                guard case .failure(let error) = promise.state.result else {
+                    fail()
+                    return
+                }
+                 expect(error is SpecError).to(beTrue())
 
                 failExpectation.fulfill()
               })
@@ -89,8 +92,7 @@ class PromiseSpec: QuickSpec {
             promise
               .done({ object in
                 expect(promise.state.isResolved).to(beTrue())
-                expect(promise.state.result?.value).to(equal(string))
-                expect(promise.state.result?.error).to(beNil())
+                expect(try! promise.state.result?.get()).to(equal(string))
 
                 doneExpectation.fulfill()
               })
@@ -118,8 +120,7 @@ class PromiseSpec: QuickSpec {
             promise.done { value in
               expect(value).to(equal(string))
               expect(promise.state.isResolved).to(beTrue())
-              expect(promise.state.result?.value).to(equal(string))
-              expect(promise.state.result?.error).to(beNil())
+              expect(try! promise.state.result?.get()).to(equal(string))
 
               doneExpectation.fulfill()
             }
@@ -143,8 +144,11 @@ class PromiseSpec: QuickSpec {
             .fail({ error in
               expect(error is SpecError).to(beTrue())
               expect(promise.state.isRejected).to(beTrue())
-              expect(promise.state.result?.value).to(beNil())
-              expect(promise.state.result?.error is SpecError).to(beTrue())
+              guard case .failure(let promiseError) = promise.state.result else {
+                  fail()
+                  return
+              }
+              expect(promiseError is SpecError).to(beTrue())
 
               failExpectation.fulfill()
             })
@@ -179,8 +183,7 @@ class PromiseSpec: QuickSpec {
             .done({ object in
               expect(object).to(equal(string))
               expect(promise.state.isResolved).to(beTrue())
-              expect(promise.state.result?.value).to(equal(string))
-              expect(promise.state.result?.error).to(beNil())
+              expect(try! promise.state.result?.get()).to(equal(string))
 
               doneExpectation.fulfill()
             })
@@ -259,7 +262,11 @@ class PromiseSpec: QuickSpec {
                 fail("Handler should not be called")
               })
               .always({ result in
-                expect((result.error as? PromiseError) == .cancelled).to(beTrue())
+                guard case .failure(let error) = result else {
+                    fail()
+                    return
+                }
+                expect((error as? PromiseError) == .cancelled).to(beTrue())
                 failExpectation.fulfill()
               })
 

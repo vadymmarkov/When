@@ -4,7 +4,7 @@ import Dispatch
 open class Promise<T> {
   public typealias DoneHandler = (T) -> Void
   public typealias FailureHandler = (Error) -> Void
-  public typealias CompletionHandler = (Result<T>) -> Void
+  public typealias CompletionHandler = (Result<T, Error>) -> Void
 
   public let key = UUID().uuidString
   let queue: DispatchQueue
@@ -144,7 +144,7 @@ open class Promise<T> {
     }
   }
 
-  private func notify(_ result: Result<T>) {
+  private func notify(_ result: Result<T, Error>) {
     switch result {
     case let .success(value):
       for doneHandler in doneHandlers {
