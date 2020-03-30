@@ -7,14 +7,14 @@ let barrierQueue = DispatchQueue(label: "When.BarrierQueue", attributes: [])
 
 public func when<T, U>(_ p1: Promise<T>, _ p2: Promise<U>) -> Promise<(T, U)> {
   return when([p1.asVoid(on: instantQueue), p2.asVoid(on: instantQueue)]).then(on: instantQueue) { _ in
-    (p1.state.result!.value!, p2.state.result!.value!)
+    (try! p1.state.result!.get(), try! p2.state.result!.get())
   }
 }
 
 public func when<T, U, V>(_ p1: Promise<T>, _ p2: Promise<U>, _ p3: Promise<V>) -> Promise<(T, U, V)> {
   return when([p1.asVoid(on: instantQueue), p2.asVoid(on: instantQueue), p3.asVoid(on: instantQueue)])
     .then(on: instantQueue, ({ _ in
-      (p1.state.result!.value!, p2.state.result!.value!, p3.state.result!.value!)
+      (try! p1.state.result!.get(), try! p2.state.result!.get(), try! p3.state.result!.get())
     }))
 }
 
@@ -31,7 +31,7 @@ public func when<T>(_ promises: [Promise<T>]) -> Promise<[T]> {
           barrierQueue.sync {
             resolved += 1
             if resolved == total {
-              masterPromise.resolve(promises.map{ $0.state.result!.value! })
+              masterPromise.resolve(promises.map{ try! $0.state.result!.get() })
             }
           }
         })

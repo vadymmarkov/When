@@ -34,12 +34,12 @@ public enum State<T>: Equatable {
     }
   }
 
-  public var result: Result<T>? {
+  public var result: Result<T, Error>? {
     switch self {
     case let .resolved(value):
-      return .success(value: value)
+        return .success(value)
     case let .rejected(error):
-      return .failure(error: error)
+        return .failure(error)
     case .pending:
       return nil
     }

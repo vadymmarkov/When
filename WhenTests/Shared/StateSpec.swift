@@ -76,7 +76,7 @@ class StateSpec: QuickSpec {
             expect(nextState.isPending).to(beFalse())
             expect(nextState.isResolved).to(beTrue())
             expect(nextState.isRejected).to(beFalse())
-            expect(nextState.result?.value).to(equal(11))
+            expect(try! nextState.result?.get()).to(equal(11))
           }
         }
       }
@@ -109,12 +109,16 @@ class StateSpec: QuickSpec {
             let nextState: State<Int> = state.map { value in
               return 11
             }
+            
+            guard case .failure(let error) = nextState.result else {
+                fail()
+                return
+            }
 
             expect(nextState.isPending).to(beFalse())
             expect(nextState.isResolved).to(beFalse())
             expect(nextState.isRejected).to(beTrue())
-            expect(nextState.result?.value).to(beNil())
-            expect(nextState.result?.error is SpecError).to(beTrue())
+            expect(error is SpecError).to(beTrue())
           }
         }
       }

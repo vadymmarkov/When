@@ -3,5 +3,5 @@ import Dispatch
 
 struct Observer<T> {
   let queue: DispatchQueue
-  let notify: (Result<T>) -> Void
+  let notify: (Result<T, Error>) -> Void
 }
